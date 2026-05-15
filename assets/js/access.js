@@ -20,8 +20,8 @@
       const lang = getLang();
       const dict = {
         accessRequired: { en: "Access required", zh: "需要权限" },
-        quickNeed: { en: "Please unlock EduCenter first.", zh: "请先完成 Quick Unlock 才能进入 EduCenter。" },
-        leadNeed: { en: "EduCommunity requires Join List access.", zh: "EduCommunity 需要 Join List 权限。" },
+        quickNeed: { en: "Please unlock FinCenter first.", zh: "请先完成 Quick Unlock 才能进入 FinCenter。" },
+        leadNeed: { en: "FinCommunity requires Join List access.", zh: "FinCommunity 需要 Join List 权限。" },
         memberNeed: { en: "Members only. Please log in.", zh: "仅限会员。请先登录。" }
       };
       return (dict[key] && dict[key][lang]) || (dict[key] && dict[key].en) || key;
