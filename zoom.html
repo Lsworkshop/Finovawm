@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Volunteer | Edunova Foundation</title>
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+<link rel="icon" href="/assets/icons/favicon.ico">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Main styles (reuse homepage style) -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <style>
+
+/* ===============================
+   Volunteer Page – FINAL (Production)
+   Notes:
+   1) 所有“功能区上下距离”只由 .zone 控制
+   2) 禁止再写全局 section padding-block，否则会把 zone 的间距覆盖掉
+================================ */
+
+/* ---------- Base ---------- */
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  background: #F9FAF7;
+  color: #2B2B2B;
+  line-height: 1.6;
+}
+
+/* ✅ 关键：不要再给 section 全局 padding（会导致“间距怎么改都不变”） */
+section { padding: 0; margin: 0; }
+
+/* ===============================
+   ZONES (四大功能区)
+================================ */
+.zone {
+  padding: 28px 0;             /* ✅ 全局控制上下距离（你要更短就改这里） */
+}
+
+.zone-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+
+.zone-a { background: #FFFFFF; }
+.zone-b { background: #E8EEFF; }  
+.zone-c { background: #EFE4FF; } 
+.zone-d { background: #F8F9F6; }
+
+/* Zone 背景色（浅、淡、有层次） */
+/*
+.zone-a { background: #FFFFFF; }
+.zone-b { background: #F1F3EF; }  
+.zone-c { background: #F6EFE0; }
+.zone-d { background: #F8F9F6; }  
+*/
+
+/* ======================
+   HERO（不改图片大小，只调与菜单的距离）
+====================== */
+.hero.hero-split {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 4rem;
+
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* ✅ 只改“离菜单太近”的问题：增加顶部距离 */
+  padding: 5rem 1.5rem 3.2rem;
+
+  min-height: 420px;
+}
+
+.hero-media { width: 100%; height: 100%; }
+
+.hero-media img {
+  width: 100%;
+  max-height: 380px;     /* 你说别改图片大小：这保持不变 */
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.hero-content h1 {
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  margin: 0 0 1rem 0;
+}
+
+.hero-content p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #555;
+  max-width: 520px;
+  margin: 0;
+}
+
+/* Hero 手机端 */
+@media (max-width: 768px) {
+  .hero.hero-split {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 4.2rem 1.2rem 2.2rem;
+    gap: 1.6rem;
+  }
+
+  .hero-media img { max-height: 240px; }
+
+  .hero-content p { margin: 0 auto; }
+}
+
+/* ===============================
+   Titles & Text
+================================ */
+.zone h2 {
+  font-size: 1.75rem;
+  margin: 0 0 14px 0;
+  font-weight: 500;
+  color: #256F3A;
+}
+
+.zone p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.86;
+  margin: 0 0 10px 0;
+}
+
+/* ===============================
+   Cards
+================================ */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.card {
+  background: linear-gradient(180deg, #FFFDF8, #F2EAD3);
+  border-radius: 18px;
+  padding: 24px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow:
+    0 8px 22px rgba(0,0,0,0.08),
+    0 2px 6px rgba(0,0,0,0.04);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.12),
+    0 4px 12px rgba(0,0,0,0.06);
+}
+
+.card h3 {
+  font-size: 1.12rem;
+  font-weight: 500;
+  margin: 0 0 10px 0;
+  color: #256F3A;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #444;
+  margin: 0 0 10px 0;
+}
+
+/* ✅ “Who We Are 做成卡片”的专用样式（如果你后面包了 .who-we-are） */
+.who-we-are {
+  background: linear-gradient(180deg, #FFFDF8, #F3EBD7);
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow:
+    0 8px 22px rgba(0,0,0,0.08),
+    0 2px 6px rgba(0,0,0,0.04);
+}
+
+/* ===============================
+   Certificate System Overview
+   ✅ 文字不要居中：只保留普通左对齐
+================================ */
+
+/* 如果你之前写过：.certificate-zone h2, p { text-align:center; }
+   ✅ 这里强制改回左对齐（避免遗留规则影响） */
+.zone-d h2,
+.zone-d p {
+  text-align: left;
+}
+
+/* ======================
+   CTA（建议放在 zone 里：.zone.cta-zone）
+   ✅ CTA 自己不额外撑大上下距离
+====================== */
+
+/* 如果你把 CTA 包进了 zone：<section class="zone ... cta-zone"> */
+.cta-zone .cta {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0;            /* ✅ 防止 CTA 自己再撑高 */
+  text-align: center;
+}
+
+/* 如果你 CTA 没包进 zone，也能正常显示 */
+.cta {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta h2 {
+  font-size: 2rem;
+  margin: 0 0 10px 0;
+  color: #1f2937;
+}
+
+.cta p {
+  color: #555;
+  margin: 0 0 18px 0;
+}
+
+/* Buttons */
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* 共用按钮基础 */
+.cta .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+/* ✅ 主按钮：亮蓝 → 亮紫（主页风格） */
+.cta .btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.35);
+}
+
+.cta .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(99, 102, 241, 0.5);
+}
+
+/* 次按钮 */
+.cta .btn-secondary {
+  background: #ffffff;
+  color: #3b82f6;
+  border: 2px solid rgba(59,130,246,0.85);
+  box-shadow: 0 8px 18px rgba(59,130,246,0.08);
+}
+
+.cta .btn-secondary:hover {
+  background: rgba(59,130,246,0.08);
+  transform: translateY(-2px);
+}
+
+/* CTA 手机端 */
+@media (max-width: 600px) {
+  .zone { padding: 22px 0; }     /* ✅ 手机端功能区间距再短一点 */
+
+  .cards { gap: 14px; margin-top: 14px; }
+  .card { padding: 20px 18px; }
+
+  .cta-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .cta .btn {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+.zone-c .cards + p {
+  margin-top: 22px;   /* 控制卡片和总结文字的距离 */
+}
+@media (max-width: 600px) {
+  .zone-c .cards + p {
+    margin-top: 16px;
+  }
+}
+
+
+  </style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav id="topNav" class="nav--transparent">
+  <div class="nav-inner">
+
+    <!-- Logo -->
+    <div class="brand">
+      <a href="/index.html#home" class="brand">
+        <img src="/assets/img/superedu-logo.png" alt="Edunova" class="logo-img" />
+        <span class="brand-text">Finova</span>
+      </a>
+    </div>
+
+    <!-- =========================
+         Desktop Menu
+    ========================== -->
+    <div class="menu" id="menu">
+
+      <!-- Home -->
+      <a href="/index.html#home" data-en="Home" data-zh="首页">Home</a>
+
+      <!-- About -->
+      <a href="/index.html#about" data-en="About" data-zh="关于我们">About</a>
+
+    <!-- Programs Dropdown -->
+<div class="nav-item dropdown">
+
+  <span class="dropdown-toggle"
+        role="button"
+        aria-haspopup="true"
+        tabindex="0"
+        data-en="Programs ⬇︎"
+        data-zh="项目 ⬇︎"> 
+  </span> 
+
+  <div class="dropdown-menu">
+    <a href="/education.html"
+       id="navEduCenter"
+       data-en="FinCenter"
+       data-zh="财富中心">
+      EduCenter
+    </a>
+
+    <a href="/community.html"
+       id="navEduCommunity"
+       data-en="FinCommunity"
+       data-zh="财富社区">
+      EduCommunity
+    </a>
+
+    <a href="/forum.html"
+       id="navForum"
+       data-en="FinForum"
+       data-zh="财富论坛">
+      EduForum 
+    </a>
+
+    <a href="/events.html" data-en="FinPlanning" data-zh="财务规划"> Events</a>
+    
+  </div>
+
+</div>
+
+      <!-- Services -->
+      <a href="/index.html#services" data-en="Services" data-zh="服务">Services</a>
+
+      <!-- Membership -->
+     <a href="/membership.html" id="navMembership" data-en="Membership" data-zh="会员中心">Membership</a>
+
+      <!-- Get Involved Dropdown -->
+<div class="nav-item dropdown">
+  <span class="dropdown-toggle" role="button" aria-haspopup="true" tabindex="0"
+        data-en="Get Involved ⬇︎" data-zh="参与方式 ⬇︎">
+   
+</span>
+
+  <div class="dropdown-menu">
+    <a href="/zoom.html"
+       data-en="Zoom&Salon"
+       data-zh="讲座与沙龙">
+      Volunteer
+    </a>
+
+    <a href="/events.html"
+       data-en="Events"
+       data-zh="重要活动">
+      Donation
+    </a>
+
+    <a href="/scholarship.html"
+       data-en="Financial Aid"
+       data-zh="助学金计算">
+      scholarship
+    </a>
+
+    <a href="/index.html#resources"
+       data-en="Resources"
+       data-zh="资源">
+      Resources
+    </a>
+  </div>
+</div>
+
+      <!-- Contact -->
+      <a href="/index.html#contact" data-en="Contact" data-zh="联系">Contact</a>
+
+      <!-- Login -->
+     <a href="/login.html" id="desktopAuth" data-en="Login" data-zh="登录">Login</a>
+
+      <!-- Slide underline -->
+      <span class="nav-underline"></span>
+    </div>
+
+    <!-- Right side -->
+    <div class="nav-right">
+      <button id="langToggle" class="lang-toggle" aria-label="Language toggle">
+        中文
+      </button>
+
+      <button id="hamburger" class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile slide menu -->
+  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <!-- Home -->
+    <a href="/index.html#home" data-en="Home" data-zh="首页">Home</a>
+
+    <!-- About -->
+    <a href="/index.html#about" data-en="About" data-zh="关于我们">About</a>
+
+    <!-- Programs Accordion -->
+    <details class="mobile-group">
+      <summary data-en="Programs" data-zh="项目">Programs</summary>
+      <a href="/education.html" id="mobileEduCenter" data-en="FinCenter" data-zh="财富中心">EduCenter</a>
+      <a href="/community.html" id="mobileEduCommunity" data-en="FinCommunity" data-zh="财富社区">EduCommunity</a>
+      <a href="/forum.html" id="mobileForum" data-en="FinForum" data-zh="财富论坛">EduForum</a>
+      <a href="/events.html" data-en="FinPlanning" data-zh="财务规划">Events</a>
+    </details>
+
+    <!-- Service -->
+    <a href="/index.html#services" data-en="Service" data-zh="服务">Service</a>
+
+    <!-- Membership -->
+    <a href="/membership.html" id="mobileMembership" data-en="Membership" data-zh="会员中心">Membership</a>
+
+    <!-- Get Involved Accordion -->
+    <details class="mobile-group">
+      <summary data-en="Get Involved" data-zh="参与方式">Get Involved</summary>
+      <a href="/zoom.html" data-en="Zoom&Salon" data-zh="讲座与沙龙">Volunteer</a>
+      <a href="/events.html" data-en="Events" data-zh="重要活动">Donation</a>
+      <a href="/scholarship.html"
+       data-en="Financial Aid"
+       data-zh="计算助学金">
+      scholarship
+    </a>
+      <a href="/index.html#resources" data-en="Resources" data-zh="资源">Resources</a>
+    </details>
+
+    <!-- Contact -->
+    <a href="/index.html#contact" data-en="Contact" data-zh="联系">Contact</a>
+
+    <!-- Login -->
+    <a href="/login.html" id="mobileAuth" data-en="Login" data-zh="登录">Login</a>
+
+    <!-- Mobile action buttons -->
+    <div class="mobile-actions">
+      <button class="btn btn-ghost" id="mobileRegister" data-en="Register/Join" data-zh="注册/加入">
+        Register / Join
+      </button>
+      <button class="btn" id="mobileUnlock" data-en="Unlock Wealth" data-zh="解锁财富">
+        Unlock Education
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ======================
+     Hero
+====================== -->
+<div class="hero hero-split">
+  <div class="hero-media">
+    <img src="/assets/img/volunteer-hero.jpg"
+         alt="Edunova Volunteers" />
+  </div>
+
+  <div class="hero-content">
+    <h1 data-en="Finova Salon"
+        data-zh="钞能财税大讲堂"
+      Volunteer with Edunova Foundation>
+    </h1>
+
+    <p data-en="Empowering global education through student-led volunteer initiatives."
+       data-zh="每周三晚上    Zoom 公益讲座 · 线上直播">
+      Empowering global education through student-led volunteer initiatives.
+    </p>
+
+    <p data-en="----------------------------------------------------"
+       data-zh="----------------------------------------------------">
+      
+    </p>
+
+    <p data-en="----------------------------------------------------"
+       data-zh="----------------------------------------------------">
+      
+    </p>
+   
+    <h1 data-en="Finova Salon"
+        data-zh="钞能财富沙龙"
+      Volunteer with Edunova Foundation>
+    </h1>
+
+    <p data-en="Empowering global education through student-led volunteer initiatives."
+       data-zh="每周二午后   线上论坛 · Online Workshops">
+      Empowering global education through student-led volunteer initiatives.
+    </p>
+  </div>
+
+</div>
+
+
+<!-- ======================
+     About
+====================== -->
+
+<section class="zone zone-a">
+  <div class="zone-inner">
+
+  <h2 data-en="Who We Are"
+      data-zh="财税大讲堂与财富沙龙">
+    Who We Are
+  </h2>
+
+  <p data-en="Edunova Foundation is a registered Non-Profit Organization (501(c)(3)) dedicated to expanding access to quality education for students worldwide."
+     data-zh="钞能财税大讲堂需要注册Zoom参加，仅仅是提供Email，注册一次即可：就可以收到Zoom发来的Zoom Link，直接点击参加即可">
+    Edunova Foundation is a registered Non-Profit Organization (501(c)(3)) dedicated to expanding access to quality education for students worldwide.
+  </p>
+
+  <p data-en="Our volunteer programs are primarily led and organized by motivated High School students, fostering leadership, responsibility, and real-world impact."
+     data-zh="钞能财富沙龙不需要注册，请使用Zoom Meeting ID: 966 168 1688  Passcode: 8888 或者点击本页最下方沙龙Zoom Link">
+    Our volunteer programs are primarily led and organized by motivated High School students.
+  </p>
+
+
+  </div>
+
+</section>
+
+<!-- ======================
+     What Volunteers Do
+====================== -->
+<section class="zone zone-b">
+  <div class="zone-inner">
+  <h2 data-en="What Our Volunteers Do"
+      data-zh="钞能财富线上沙龙">
+    What Our Volunteers Do
+  </h2>
+
+  <div class="cards">
+      <div class="card">
+        <h3 data-en="Volunteer Certificate" data-zh="📅 每周二 下午 12:30（美西时间）">Volunteer Certificate</h3>
+        <p data-en="Issued to volunteers who have completed verified service hours and fulfilled assigned responsibilities."
+           data-zh="美西(加州) 12:30 PM · 美中(德州) 2:30 PM · 美东(纽约) 3:30 PM">
+          Issued to volunteers who have completed verified service hours and fulfilled assigned responsibilities.
+        </p>
+        
+      </div>
+
+    
+      <div class="card">
+        
+    <a href="https://us02web.zoom.us/j/9661681688?pwd=MHR1Y2JZZUJCWXVoNDZGU2VSdGdKUT09"
+     target="_blank"
+     style="text-decoration:none; color:inherit;">
+
+    <h3 data-en="Award Plus"
+        data-zh="参加钞能财富Zoom沙龙">
+      Award Plus
+    </h3>
+
+    <p data-en="Express Interest"
+       data-zh="点击参加钞能财富Zoom沙龙">
+      Express Interest
+    </p>
+
+    </a>
+
+        
+        <p data-en="This recognition reflects both responsibility and sustained impact within the organization."
+           data-zh="或者输入 Zoom Meeting ID: 966 168 1688  Passcode: 8888 参加沙龙">
+          This recognition reflects both responsibility and sustained impact within the organization.
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================
+     Certificates
+====================== -->
+<section class="zone zone-c">
+  <div class="zone-inner">
+    <h2 data-en="Certificates & Recognition" data-zh="讲座与沙龙主题">
+      Certificates & Recognition
+    </h2>
+
+    <p data-en="Based on verified volunteer service hours, Edunova Foundation awards official certificates recognizing volunteer contributions."
+       data-zh="五大系列：报税省税，退休规划，信托与美国资产配置，大学申请与教育账户，房地产的分析与投资">
+      Based on verified volunteer service hours, Edunova Foundation awards official certificates.
+    </p>
+    <div class="cards">
+      <div class="card">
+        <h3 data-en="Volunteer Certificate" data-zh="第一个系列 First Season：税务优化，提早合法合理避税">Volunteer Certificate</h3>
+
+        <p data-en="Official recognition of verified service hours."
+           data-zh="每年为您节省大量税金；税务相关的法律与知识普及；报税服务等">
+          Official recognition of verified service hours.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 data-en="Outstanding Volunteer Award" data-zh="第二个系列 Second Season：退休规划之退休金系列">Outstanding Volunteer Award</h3>
+        <p data-en="Granted to volunteers with exceptional contribution."
+           data-zh="每PPT讲解概念、原理、产品定位、优势劣势；之后还有：业界A级公司对比，模拟演示，实际案例；帮助您实现高的永续终身现金流">
+          Granted to volunteers with exceptional contribution.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 data-en="Award Plus" data-zh="第三个系列 Third Season：信托与美国资产配置">Award Plus</h3>
+        <p data-en="Extended leadership and long-term impact recognition."
+           data-zh="主要包括Trust信托，境内外投资，移民前后资产规划，Financial Plans">
+          Extended leadership and long-term impact recognition.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 data-en="Outstanding Volunteer Award" data-zh="第四个系列 Forth Season：大学申请与教育账户">Outstanding Volunteer Award</h3>
+        <p data-en="Granted to volunteers with exceptional contribution."
+           data-zh="重点是大学申请与教育，大学教育助学金计算与申请，大学教育基金，美国教育账户等；奖学金与助学金的规划与申请，可以帮助您多得助学金">
+          Granted to volunteers with exceptional contribution.
+        </p>
+      </div>
+        
+      <div class="card">
+        <h3 data-en="Outstanding Volunteer Award" data-zh="第五个系列 Fifth Season：房地产的发展与投资">Outstanding Volunteer Award</h3>
+        <p data-en="Granted to volunteers with exceptional contribution."
+           data-zh="第三个系列 Third Season：房地产的发展与投资分析：重点是房地产税务，房地产投资的形式，适合投资的城市等">
+          Granted to volunteers with exceptional contribution.
+        </p>
+      </div>
+
+
+    </div>
+
+    <p data-en="These recognitions are highly valuable for college applications, scholarships, and academic portfolios."
+       data-zh="钞能财税大讲堂与财富沙龙有重叠交叉，也各有侧重，形式完全不同：大讲堂是完全的PPT讲座，而沙龙则类似茶话会的交流互动形式">
+      These recognitions are highly valuable for college applications and scholarships.
+    </p>
+  </div>
+</section>
+
+<!-- ======================
+     Certificate System Overview
+====================== -->
+<section class="zone zone-d certificate-zone">
+  <div class="zone-inner">
+
+    <h2 data-en="Certificate System Overview" data-zh="钞能财税大讲堂 Zoom 线上直播">
+      Certificate System Overview
+    </h2>
+
+    <p data-en="Edunova Foundation issues volunteer certificates based on verified service hours, level of responsibility, and demonstrated impact."
+       data-zh="请注册 Zoom 线上公益免费讲座">
+      Edunova Foundation issues volunteer certificates based on verified service hours, level of responsibility, and demonstrated impact.
+    </p>
+
+    <p data-en="All recognitions emphasize authenticity, long-term engagement, and educational value rather than short-term participation."
+       data-zh="注册一次即可，邮箱将会收到个人专属专用Zoom Link，直接点击即可参加讲座。">
+      All recognitions emphasize authenticity, long-term engagement, and educational value rather than short-term participation.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3 data-en="Volunteer Certificate" data-zh="📅 每周三 晚上 6:30（美西时间）">Volunteer Certificate</h3>
+        <p data-en="Issued to volunteers who have completed verified service hours and fulfilled assigned responsibilities."
+           data-zh="美西(加州) 6:30 PM · 美中(德州) 8:30 PM · 美东(纽约) 9:30 PM">
+          Issued to volunteers who have completed verified service hours and fulfilled assigned responsibilities.
+        </p>
+        
+      </div>
+
+    
+      <div class="card">
+        
+    <a href="https://us02web.zoom.us/meeting/register/OTK5r59URLODa2eWFv5b0A"
+     target="_blank"
+     style="text-decoration:none; color:inherit;">
+
+    <h3 data-en="Award Plus"
+        data-zh="注册Zoom讲座（跳转至Zoom官网）">
+      Award Plus
+    </h3>
+
+    <p data-en="Express Interest"
+       data-zh="点击注册Zoom会议讲座">
+      Express Interest
+    </p>
+
+    </a>
+
+        
+        <p data-en="This recognition reflects both responsibility and sustained impact within the organization."
+           data-zh="您将跳转至 Zoom 官方注册页面，您的个人信息仅由 Zoom 保存和处理">
+          This recognition reflects both responsibility and sustained impact within the organization.
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======================
+     CTA
+====================== -->
+<section class="zone zone-a cta-zone">
+  <div class="zone-inner">
+
+    <div class="cta">
+      <h2 data-en="Get Involved" data-zh="加入我们">Get Involved</h2>
+
+      <p data-en="Interested in volunteering with Edunova Foundation?"
+         data-zh="请注册财税大讲堂 或 参加财富沙龙">
+        Interested in volunteering with Edunova Foundation?
+      </p>
+
+      <div class="cta-actions">
+        <a href="https://us02web.zoom.us/meeting/register/OTK5r59URLODa2eWFv5b0A" target="_blank" class="btn btn-primary"
+           data-en="Express Interest"
+           data-zh="立即注册报名财税大讲堂（跳转Zoom官方）">
+          Express Interest
+        </a>
+
+        <a href="https://us02web.zoom.us/j/9661681688?pwd=MHR1Y2JZZUJCWXVoNDZGU2VSdGdKUT09" target="_blank" class="btn btn-secondary"
+           data-en="Member Login"
+           data-zh="参加钞能财富沙龙">
+          Member Login
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+</div>
+</section>
+
+<!-- ======================
+     Scripts
+====================== -->
+<script src="/assets/js/menu.js"></script>
+<script src="/assets/js/lang.js"></script>
+<script src="/assets/js/auth-nav.js" defer></script>
+<script src="/assets/js/access.js" defer></script>
+<!-- Footer (reuse your site footer if you have one) -->
+   <!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+
+    <!-- Column 1 -->
+    <div class="footer-col">
+      <h4>Finova</h4>
+      <a href="/apply.html" target="_blank"
+         data-en="Apply for Services"
+         data-zh="申请服务">
+        申请服务
+      </a>
+      <a href="/membership.html"
+         data-en="Membership"
+         data-zh="会员中心">
+        会员中心
+      </a>
+
+      <a href="https://www.lsfinova.com/" target="_blank"
+         data-en="Google Blogger"
+         data-zh="个人Blogger">
+        会员中心
+      </a>
+
+    </div>
+
+    <!-- Column 2 -->
+    <div class="footer-col">
+      <h4 data-en="Financial Plans" data-zh="财务规划">
+        教育与基金
+      </h4>
+       
+      <a href="/events.html"
+         data-en="FinPlanning" target="_blank"
+         data-zh="税优稳健产品">
+        会员中心
+      </a>
+
+      <a href="#resources"
+         data-en="Resources"
+         data-zh="学习资源">
+        学习资源
+      </a>
+      <a href="https://www.lsfinova.com/aid" target="_blank"
+         data-en="Aid Calculator"
+         data-zh="教育资助计算器">
+        教育资助计算器
+      </a>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="footer-col">
+      <h4 data-en="Contact" data-zh="联系我们">
+        联系我们
+      </h4>
+      <div class="muted"
+           data-en="Email: team@finovawm.com"
+           data-zh="电子邮件: team@finovawm.com">
+        微信：Leon_Song_PhD
+      </div>
+      <div class="muted"
+           data-en="Phone: 1-916-793-0676 (Text)"
+           data-zh="电话 / 短信：1-916-793-0676">
+        电话 / 短信：1-916-793-0676
+      </div>
+      <div class="muted"
+           data-en="WeChat: Leon_Song_PhD"
+           data-zh="微信：Leon_Song_PhD">
+        微信：Leon_Song_PhD
+      </div>
+    </div>
+
+    <!-- Column 4 -->
+    <div class="footer-col">
+      <h4 data-en="Legal" data-zh="法律信息">
+        法律信息
+      </h4>
+      <a href="/privacy.html" target="_blank"
+         data-en="Privacy Policy"
+         data-zh="隐私政策">
+        隐私政策
+      </a>
+      <a href="/terms.html" target="_blank"
+         data-en="Terms of Service"
+         data-zh="服务条款">
+        服务条款
+      </a>
+
+      <a 
+         data-en="Only for Education"
+         data-zh="教育目的">
+        服务条款
+      </a>
+    </div>
+
+  </div>
+
+  <div class="footer-copy"
+       data-en="© 2025 Finova Wealth Management. All rights reserved."
+       data-zh="© 2025 钞能财富管理 版权所有">
+    © 2025 Finova，Edunova & Axonova 版权所有
+  </div>
+</footer>
+</body>
+</html>
