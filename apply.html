@@ -453,6 +453,38 @@ const serviceItems = [
     id: 's1',
     order: '1',
     en: '🎓 Education Affordability & Funding Support',
+    zh: '🎓 财富增长规划与资产配置管理',
+    subs_en: [
+      'Financial Aid (FAFSA / CSS)',
+      'Scholarships & Grants',
+      'Education Savings & Funding Strategy'
+    ],
+    subs_zh: [
+      '高流动永续被动收入',
+      '家族基金会信托规划',
+      '资产配置长期规划'
+    ]
+  },
+  {
+    id: 's2',
+    order: '2',
+    en: '🤝 Volunteer & Social Impact Programs & Support',
+    zh: '🤝 税务策略与总体优化',
+    subs_en: [
+      'Edunova Volunteer Programs',
+      'Webinar & courses for students',
+      'Community & Social Impact Initiatives'
+    ],
+    subs_zh: [
+      '报税服务税务优化',
+      '税优产品/免税产品',
+      '移民前后税务分析与优化'
+    ]
+  },
+  {
+    id: 's3',
+    order: '3',
+    en: '🎓 Education Affordability & Funding Support',
     zh: '🎓 教育可负担性与资助支持',
     subs_en: [
       'Financial Aid (FAFSA / CSS)',
@@ -462,55 +494,23 @@ const serviceItems = [
     subs_zh: [
       '助学金（FAFSA / CSS）',
       '奖学金与资助项目',
-      '教育储蓄与资金规划'
-    ]
-  },
-  {
-    id: 's2',
-    order: '2',
-    en: '🤝 Volunteer & Social Impact Programs & Support',
-    zh: '🤝 志愿服务与社会公益项目',
-    subs_en: [
-      'Edunova Volunteer Programs',
-      'Webinar & courses for students',
-      'Community & Social Impact Initiatives'
-    ],
-    subs_zh: [
-      'Edunova 志愿者项目',
-      '计算机讲座与课程',
-      '社区与社会影响力项目'
-    ]
-  },
-  {
-    id: 's3',
-    order: '3',
-    en: '🏠 Education-Centered Family & Community Support',
-    zh: '🏠 教育为本家庭与社区支持',
-    subs_en: [
-      'Family Education Planning',
-      'Education Foundation NPO 501C(3)', 
-      'EduWealth Trust Coordination',
-    ],
-    subs_zh: [
-      '家庭教育整体规划',
-      '教育基金会 公益组织501C(3)',
-      '教育财富 信托',
+      '教育储蓄与资金设计'
     ]
   },
   {
     id: 's4',
     order: '4',
     en: '📘 Academic & College Readiness Support',
-    zh: '📘 学术课程与大学升学支持',
+    zh: '📘 退休规划与富足养老',
     subs_en: [
       'U.S. Education System Overview',
       'College Application Strategy',
       'Pre-College Profile (AP / Summer)'
     ],
     subs_zh: [
-      '美国教育体系与比较',
-      '大学申请策略',
-      '大学前背景打造（AP / 夏校）'
+      '符合IRS的退休计划',
+      '六大税优稳健的投资产品',
+      '多阶段制定，赢在人生下半场'
     ]
   }
 ];
@@ -576,10 +576,10 @@ function setLang(l){
     langBtn.innerText = (l === 'en') ? '中文' : 'EN';
   }
 }
-================================ */
-/* ===============================
+
+
    Init on Load
-================================ */
+
 document.addEventListener('DOMContentLoaded', () => {
   setLang(lang);
 
@@ -591,7 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* ===============================
+
    Submit Form
 ================================ */
 document.getElementById('applyForm').addEventListener('submit', async e =>{
@@ -670,7 +670,7 @@ let lang = localStorage.getItem('superedu-lang') || 'en';
 
 </script>
 
-
+<script src="/assets/js/lang.js" defer></script>
 <script src="/assets/js/auth-nav.js" defer></script>
 <!-- Footer (reuse your site footer if you have one) -->
    <!-- FOOTER -->
