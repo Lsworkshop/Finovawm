@@ -18,13 +18,7 @@
   <script src="/assets/js/menu.js" defer></script>
   <script src="/assets/js/lang.js" defer></script>
 
-  <div id="fa_calc" style="font-family: Helvetica Neue,
-    PingFang SC,
-    Noto Sans SC,
-    sans-serif;
-    margin: 22px auto; max-width: 980px; position: relative;"></div>
-
-<style>
+ <style>
 :root{
   --bg1:#ffffff; --bg2:#f7fbff;
   --text:#1e293b; --muted:#6b7280;
@@ -342,11 +336,6 @@
   }
 }
 
-  
-</style>
-
-
-  <style>
     /* ======================================================
        Scholarship Page – Production (Match Volunteer/Donation)
        Notes:
@@ -710,9 +699,6 @@
   }
 }
 
-
-
-
   </style>
 </head>
 
@@ -722,7 +708,6 @@
   <html class="nav-preload"></html>
   <!-- 你已有统一导航，这里直接复用你当前项目的 nav 代码块即可 -->
  <!-- NAV -->
-
 <nav id="topNav" class="nav--transparent">
   <div class="nav-inner">
 
@@ -730,7 +715,7 @@
     <div class="brand">
       <a href="/index.html#home" class="brand">
         <img src="/assets/img/superedu-logo.png" alt="Edunova" class="logo-img" />
-        <span class="brand-text">Edunova</span>
+        <span class="brand-text">Finova</span>
       </a>
     </div>
 
@@ -759,26 +744,26 @@
   <div class="dropdown-menu">
     <a href="/education.html"
        id="navEduCenter"
-       data-en="EduCenter"
-       data-zh="教育中心">
+       data-en="FinCenter"
+       data-zh="财富中心">
       EduCenter
     </a>
 
     <a href="/community.html"
        id="navEduCommunity"
-       data-en="EduCommunity"
-       data-zh="教育社区">
+       data-en="FinCommunity"
+       data-zh="财富社区">
       EduCommunity
     </a>
 
     <a href="/forum.html"
        id="navForum"
-       data-en="EduForum"
-       data-zh="教育论坛">
+       data-en="FinForum"
+       data-zh="财富论坛">
       EduForum 
     </a>
 
-    <a href="/events.html" data-en="Events" data-zh="活动"> Events</a>
+    <a href="/plans.html" data-en="FinPlanning" data-zh="财务规划"> Events</a>
     
   </div>
 
@@ -798,21 +783,21 @@
 </span>
 
   <div class="dropdown-menu">
-    <a href="/volunteer.html"
-       data-en="Volunteer"
-       data-zh="志愿者">
+    <a href="/zoom.html"
+       data-en="Zoom&Salon"
+       data-zh="讲座与沙龙">
       Volunteer
     </a>
 
-    <a href="/donation.html"
-       data-en="Donation"
-       data-zh="捐赠">
+    <a href="/events.html"
+       data-en="Events"
+       data-zh="重要活动">
       Donation
     </a>
 
-    <a href="/scholarship.html"
-       data-en="scholarship"
-       data-zh="奖学金">
+    <a href="/aid.html"
+       data-en="Financial Aid"
+       data-zh="助学金计算">
       scholarship
     </a>
 
@@ -857,10 +842,10 @@
     <!-- Programs Accordion -->
     <details class="mobile-group">
       <summary data-en="Programs" data-zh="项目">Programs</summary>
-      <a href="/education.html" id="mobileEduCenter" data-en="EduCenter" data-zh="教育中心">EduCenter</a>
-      <a href="/community.html" id="mobileEduCommunity" data-en="EduCommunity" data-zh="教育社区">EduCommunity</a>
-      <a href="/forum.html" id="mobileForum" data-en="EduForum" data-zh="教育论坛">EduForum</a>
-      <a href="/events.html" data-en="Events" data-zh="活动">Events</a>
+      <a href="/education.html" id="mobileEduCenter" data-en="FinCenter" data-zh="财富中心">EduCenter</a>
+      <a href="/community.html" id="mobileEduCommunity" data-en="FinCommunity" data-zh="财富社区">EduCommunity</a>
+      <a href="/forum.html" id="mobileForum" data-en="FinForum" data-zh="财富论坛">EduForum</a>
+      <a href="/plans.html" data-en="FinPlanning" data-zh="财务规划">Events</a>
     </details>
 
     <!-- Service -->
@@ -872,11 +857,11 @@
     <!-- Get Involved Accordion -->
     <details class="mobile-group">
       <summary data-en="Get Involved" data-zh="参与方式">Get Involved</summary>
-      <a href="/volunteer.html" data-en="Volunteer" data-zh="志愿者">Volunteer</a>
-      <a href="/donation.html" data-en="Donation" data-zh="捐赠">Donation</a>
-      <a href="/scholarship.html"
-       data-en="scholarship"
-       data-zh="奖学金">
+      <a href="/zoom.html" data-en="Zoom&Salon" data-zh="讲座与沙龙">Volunteer</a>
+      <a href="/events.html" data-en="Events" data-zh="重要活动">Donation</a>
+      <a href="/aid.html"
+       data-en="Financial Aid"
+       data-zh="计算助学金">
       scholarship
     </a>
       <a href="/index.html#resources" data-en="Resources" data-zh="资源">Resources</a>
@@ -893,13 +878,14 @@
       <button class="btn btn-ghost" id="mobileRegister" data-en="Register/Join" data-zh="注册/加入">
         Register / Join
       </button>
-      <button class="btn" id="mobileUnlock" data-en="Unlock Education" data-zh="解锁教育">
+      <button class="btn" id="mobileUnlock" data-en="Unlock Wealth" data-zh="解锁财富">
         Unlock Education
       </button>
     </div>
   </div>
 </nav>
 
+ 
   <!-- Reserved space for fixed nav -->
   <div class="top-offset"></div>
 
@@ -946,7 +932,11 @@
 
 
 
-
+ <div id="fa_calc" style="font-family: Helvetica Neue,
+    PingFang SC,
+    Noto Sans SC,
+    sans-serif;
+    margin: 22px auto; max-width: 980px; position: relative;"></div>
 
   
 <!--START: Step7.0-->
@@ -1347,93 +1337,7 @@
     </div>
   </section>
 
-  <!-- Zone B: Criteria -->
-  <section class="zone zone-b">
-    <div class="zone-inner">
-      <h2 data-en="Eligibility & Evaluation" data-zh="申请条件与评定标准">Eligibility & Evaluation</h2>
-      <p class="muted"
-         data-en="We emphasize authenticity and long-term development. Evaluation may include GPA/grades, growth trajectory, service/leadership, and the applicant’s educational goals."
-         data-zh="我们强调真实性与长期成长。评定可能包含 GPA/成绩、成长轨迹、服务与领导力、以及申请者的教育目标。">
-        We emphasize authenticity and long-term development. Evaluation may include GPA/grades, growth trajectory, service/leadership, and the applicant’s educational goals.
-      </p>
-
-      <div class="highlight">
-        <p class="muted" style="margin:0"
-           data-en="Typical criteria (varies by scholarship):"
-           data-zh="常见评定维度（不同奖项略有不同）：">
-          Typical criteria (varies by scholarship):
-        </p>
-        <ul class="bullet">
-          <li data-en="Academic performance (e.g., GPA, progress, course rigor)"
-              data-zh="学业表现（如 GPA、进步情况、课程挑战度）">
-            Academic performance (e.g., GPA, progress, course rigor)
-          </li>
-          <li data-en="Consistency & discipline (attendance, learning habits, long-term effort)"
-              data-zh="稳定性与自律（出勤、学习习惯、长期投入）">
-            Consistency & discipline (attendance, learning habits, long-term effort)
-          </li>
-          <li data-en="Leadership & service (school/community involvement)"
-              data-zh="领导力与服务（校园/社区参与）">
-            Leadership & service (school/community involvement)
-          </li>
-          <li data-en="Financial need (for special aid scholarships)"
-              data-zh="家庭经济情况（用于特别奖助学金评定）">
-            Financial need (for special aid scholarships)
-          </li>
-          <li data-en="Clear goals (education plan and motivation)"
-              data-zh="目标清晰（教育规划与学习动机）">
-            Clear goals (education plan and motivation)
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Zone C: How Awards Work -->
-  <section class="zone zone-c">
-    <div class="zone-inner">
-      <h2 data-en="How Scholarships Are Awarded" data-zh="奖学金如何发放">How Scholarships Are Awarded</h2>
-      <p class="muted"
-         data-en="Different awards may have different timelines. For high school students, some scholarships are awarded immediately; others are released after graduation when the student begins college."
-         data-zh="不同奖项可能采用不同的时间安排。针对高中学生：部分奖学金评定后即时发放；部分奖项可在高中毕业、进入大学后发放。">
-        Different awards may have different timelines. For high school students, some scholarships are awarded immediately; others are released after graduation when the student begins college.
-      </p>
-
-
-
-
-      
-      <div class="cards">
-        <div class="card">
-          <div class="icon">⏱️</div>
-          <h3 data-en="Immediate Awards" data-zh="即时发放">Immediate Awards</h3>
-          <p data-en="Issued shortly after review to recognize current achievement and support ongoing learning."
-             data-zh="评定通过后尽快发放，用于认可当下成果并支持持续学习。">
-            Issued shortly after review to recognize current achievement and support ongoing learning.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">🎒</div>
-          <h3 data-en="College-Start Release" data-zh="入学后发放">College-Start Release</h3>
-          <p data-en="Some high school scholarships are reserved and released when the student officially begins college."
-             data-zh="部分高中奖学金将预留并在学生正式入学大学后发放。">
-            Some high school scholarships are reserved and released when the student officially begins college.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">📄</div>
-          <h3 data-en="Transparent & Documented" data-zh="透明可追踪">Transparent & Documented</h3>
-          <p data-en="We keep records and follow our nonprofit governance standards to ensure fairness, clarity, and accountability."
-             data-zh="我们遵循非营利治理规范，保留记录，确保公平、清晰与可追责。">
-            We keep records and follow our nonprofit governance standards to ensure fairness, clarity, and accountability.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
+ 
   <!-- Zone D: Support / Donate -->
   <section class="zone zone-d">
     <div class="zone-inner">
