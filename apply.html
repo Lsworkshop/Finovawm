@@ -460,9 +460,9 @@ const serviceItems = [
       'Education Savings & Funding Strategy'
     ],
     subs_zh: [
-      '高流动永续被动收入',
-      '家族基金会信托规划',
-      '资产配置长期规划'
+      '安全+高流动+永续被动收入',
+      '资产配置家族基金会信托规划',
+      '财富稳健增长特别放大传承'
     ]
   },
   {
@@ -517,7 +517,7 @@ const serviceItems = [
 
 /* ===============================
    Render Service Checkboxes
-================================ */
+
 function renderServices(){
 
   const wrap = document.getElementById('servicesList');
@@ -549,7 +549,47 @@ function renderServices(){
   });
 }
 
+================================ */
 
+window.renderServices = function(){
+
+  const wrap = document.getElementById('servicesList');
+  if(!wrap) return;
+
+  const currentLang =
+    localStorage.getItem('superedu-lang') || 'en';
+
+  wrap.innerHTML = '';
+
+  serviceItems.forEach(s=>{
+
+    const title =
+      currentLang === 'en' ? s.en : s.zh;
+
+    const subs =
+      currentLang === 'en'
+        ? s.subs_en
+        : s.subs_zh;
+
+    wrap.innerHTML += `
+      <label class="service-option-card">
+        <input type="checkbox" name="services" value="${s.id}">
+        <div class="service-option-body">
+
+          <div class="service-option-title">
+            <span class="service-order">${s.order}.</span>
+            ${title}
+          </div>
+
+          <ul class="service-sub-list">
+            ${subs.map(item => `<li>${item}</li>`).join('')}
+          </ul>
+
+        </div>
+      </label>
+    `;
+  });
+}
 /* ===============================
    Language Switching
 

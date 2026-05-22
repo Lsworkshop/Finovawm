@@ -57,6 +57,10 @@
   renderServices();
 }
 
+if(window.renderServices){
+   window.renderServices();
+}
+
   // --- 初始化（不依赖脚本顺序）
   function initApply() {
     applyLanguage(getLang());
