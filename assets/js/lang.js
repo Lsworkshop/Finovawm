@@ -53,6 +53,10 @@
   // 暴露给 menu.js 等使用
   window.applyLanguage = applyLanguage;
 
+  if (typeof renderServices === "function") {
+  renderServices();
+}
+
   // --- 初始化（不依赖脚本顺序）
   function initApply() {
     applyLanguage(getLang());
