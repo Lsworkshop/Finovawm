@@ -1,0 +1,499 @@
+<!-- ===== Finova Financial Aid Calculator ===== -->
+
+<div class="aid-banner">
+  <img src="/images/aid-calculator-banner.png"
+       alt="Financial Aid Calculator"
+       loading="lazy">
+</div>
+
+<div id="fa_calc"></div>
+
+<style>
+
+/* ===== ROOT ===== */
+
+:root{
+  --bg1:#ffffff;
+  --bg2:#f7fbff;
+  --text:#1e293b;
+  --muted:#6b7280;
+  --accent:#1f6fd7;
+  --accent2:#0a98d6;
+  --border:#e2e8f0;
+  --btn-text:#ffffff;
+}
+
+/* ===== DARK MODE ===== */
+
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg1:#071021;
+    --bg2:#0b1a2a;
+    --text:#e6f6ff;
+    --muted:#9fb4c9;
+    --accent:#4da3ff;
+    --accent2:#7bc8ff;
+    --border:#183041;
+    --btn-text:#06121a;
+  }
+}
+
+/* ===== BANNER ===== */
+
+.aid-banner{
+  text-align:center;
+  margin:24px auto;
+}
+
+.aid-banner img{
+  width:100%;
+  max-width:900px;
+  height:auto;
+  border-radius:16px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.08);
+}
+
+/* ===== MAIN ===== */
+
+#fa_calc{
+  max-width:980px;
+  margin:24px auto;
+  font-family:"Segoe UI",Arial,sans-serif;
+  color:var(--text);
+  box-sizing:border-box;
+}
+
+#fa_calc *{
+  box-sizing:border-box;
+}
+
+/* ===== CARD ===== */
+
+#fa_calc .card{
+  background:var(--bg1);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.04);
+  transition:all .25s ease;
+}
+
+#fa_calc .card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 32px rgba(0,0,0,0.06);
+}
+
+#fa_calc .bg2{
+  background:linear-gradient(
+    180deg,
+    rgba(240,249,255,0.85),
+    rgba(232,244,255,0.75)
+  );
+}
+
+/* ===== TITLE ===== */
+
+#fa_calc h2{
+  text-align:center;
+  font-size:32px;
+  margin:8px 0;
+  font-weight:800;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+#fa_calc h3{
+  margin:0 0 14px;
+  font-size:18px;
+  color:var(--accent);
+  border-left:4px solid var(--accent);
+  padding-left:10px;
+}
+
+/* ===== TEXT ===== */
+
+.subtitle,
+.top-note{
+  text-align:center;
+  color:var(--muted);
+}
+
+.subtitle{
+  font-size:14px;
+}
+
+.top-note{
+  margin-top:8px;
+  font-size:13px;
+}
+
+/* ===== GRID ===== */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+@media(max-width:760px){
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ===== INPUT ===== */
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-size:14px;
+  font-weight:700;
+}
+
+input,
+select{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  font-size:15px;
+}
+
+input:focus,
+select:focus{
+  outline:none;
+  border-color:var(--accent2);
+  box-shadow:0 0 0 4px rgba(10,152,214,0.12);
+}
+
+/* ===== BUTTON ===== */
+
+.controls{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:none;
+  border-radius:30px;
+  padding:14px 24px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:var(--btn-text);
+}
+
+.btn-ghost{
+  background:#eef2f7;
+  color:#111827;
+}
+
+/* ===== RESULT ===== */
+
+.results{
+  background:linear-gradient(
+    180deg,
+    rgba(240,248,255,0.95),
+    rgba(225,240,250,0.95)
+  );
+  border-left:6px solid var(--accent2);
+}
+
+.result-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+  flex-wrap:wrap;
+}
+
+.result-item .label{
+  font-weight:700;
+}
+
+.result-item .value{
+  font-weight:900;
+  color:var(--accent2);
+  white-space:nowrap;
+}
+
+/* ===== TOOLTIP ===== */
+
+.tooltip-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#eef2f3;
+  cursor:pointer;
+  margin-left:6px;
+  font-size:12px;
+  font-weight:800;
+}
+
+#fa_global_tooltip{
+  position:absolute;
+  z-index:999999;
+  max-width:520px;
+  padding:12px 14px;
+  border-radius:12px;
+  background:#f8fafc;
+  color:#111827;
+  box-shadow:0 10px 30px rgba(0,0,0,0.18);
+  display:none;
+  line-height:1.6;
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:480px){
+
+  #fa_calc h2{
+    font-size:24px;
+  }
+
+  .result-item{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .result-item .value{
+    width:100%;
+    text-align:right;
+  }
+
+}
+
+/* ===== DARK MODE FIX ===== */
+
+@media(prefers-color-scheme:dark){
+
+  input,
+  select{
+    background:rgba(255,255,255,0.06);
+    color:#f9fafb;
+  }
+
+  .btn-ghost{
+    background:#374151;
+    color:#f9fafb;
+  }
+
+  #fa_global_tooltip{
+    background:#f9fafb;
+    color:#111827;
+  }
+
+}
+
+</style>
+
+<script>
+
+(function(){
+
+const TEXT = {
+  zh:{
+    title:"🎓 助学金估算器",
+    subtitle:"基于 COA 与家庭收入资产估算 EFC 与助学金",
+    calc:"计算",
+    reset:"重置",
+    efc:"EFC 估算",
+    aid:"预计助学金"
+  },
+  en:{
+    title:"🎓 Financial Aid Calculator",
+    subtitle:"Estimate EFC & Aid Range",
+    calc:"Calculate",
+    reset:"Reset",
+    efc:"Estimated EFC",
+    aid:"Estimated Aid"
+  }
+};
+
+let lang = "zh";
+
+function render(){
+
+const t = TEXT[lang];
+
+document.getElementById("fa_calc").innerHTML = `
+
+<div class="card">
+
+<h2>${t.title}</h2>
+
+<div class="subtitle">
+${t.subtitle}
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="form-grid">
+
+<div>
+<label>COA</label>
+<input id="coa" type="number">
+</div>
+
+<div>
+<label>Parent MAGI</label>
+<input id="pmagi" type="number">
+</div>
+
+<div>
+<label>Student MAGI</label>
+<input id="smagi" type="number">
+</div>
+
+<div>
+<label>Parent Assets</label>
+<input id="passets" type="number">
+</div>
+
+<div>
+<label>Student Assets</label>
+<input id="sassets" type="number">
+</div>
+
+</div>
+
+<div class="controls" style="margin-top:22px;">
+
+<button class="btn btn-primary" id="calcBtn">
+📊 ${t.calc}
+</button>
+
+<button class="btn btn-ghost" id="resetBtn">
+♻️ ${t.reset}
+</button>
+
+</div>
+
+</div>
+
+<div class="card results" id="results" style="display:none;">
+
+<div class="result-item">
+<div class="label">${t.efc}</div>
+<div class="value" id="efcOut"></div>
+</div>
+
+<div class="result-item">
+<div class="label">${t.aid}</div>
+<div class="value" id="aidOut"></div>
+</div>
+
+<canvas id="aidChart" style="margin-top:20px;"></canvas>
+
+</div>
+`;
+
+bindEvents();
+
+}
+
+function bindEvents(){
+
+document.getElementById("calcBtn").onclick = async function(){
+
+const coa = Number(document.getElementById("coa").value || 0);
+
+const pmagi = Number(document.getElementById("pmagi").value || 0);
+
+const smagi = Number(document.getElementById("smagi").value || 0);
+
+const passets = Number(document.getElementById("passets").value || 0);
+
+const sassets = Number(document.getElementById("sassets").value || 0);
+
+const efc =
+(pmagi * 0.3) +
+(smagi * 0.5) +
+(passets * 0.06) +
+(sassets * 0.2);
+
+const aid = Math.max(0, coa - efc);
+
+document.getElementById("results").style.display = "block";
+
+document.getElementById("efcOut").innerHTML =
+"$" + Math.round(efc).toLocaleString();
+
+document.getElementById("aidOut").innerHTML =
+"$" + Math.round(aid).toLocaleString();
+
+await drawChart(coa, efc, aid);
+
+};
+
+document.getElementById("resetBtn").onclick = function(){
+render();
+};
+
+}
+
+async function drawChart(coa, efc, aid){
+
+if(!window.Chart){
+
+await new Promise((resolve,reject)=>{
+
+const script = document.createElement("script");
+
+script.src =
+"https://cdn.jsdelivr.net/npm/chart.js";
+
+script.onload = resolve;
+
+script.onerror = reject;
+
+document.head.appendChild(script);
+
+});
+
+}
+
+const ctx =
+document.getElementById("aidChart").getContext("2d");
+
+new Chart(ctx,{
+type:"bar",
+data:{
+labels:["COA","EFC","Aid"],
+datasets:[{
+data:[coa,efc,aid]
+}]
+},
+options:{
+responsive:true
+}
+});
+
+}
+
+render();
+
+})();
+
+</script>
+
+<!-- ===== END FINOVA CALCULATOR ===== -->
