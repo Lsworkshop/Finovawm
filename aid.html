@@ -18,8 +18,335 @@
   <script src="/assets/js/menu.js" defer></script>
   <script src="/assets/js/lang.js" defer></script>
 
-  <style>
+  <div id="fa_calc" style="font-family: Helvetica Neue,
+    PingFang SC,
+    Noto Sans SC,
+    sans-serif;
+    margin: 22px auto; max-width: 980px; position: relative;"></div>
 
+<style>
+:root{
+  --bg1:#ffffff; --bg2:#f7fbff;
+  --text:#1e293b; --muted:#6b7280;
+  --accent:#1f6fd7; --accent2:#0a98d6;
+  --border:#e2e8f0; --btn-text:#fff;
+}
+
+/* dark mode */
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg1:#071021; --bg2:#0b1a2a;
+    --text:#e6f6ff; --muted:#9fb4c9;
+    --accent:#3aa0ff; --accent2:#61b7ff;
+    --border:#183041; --btn-text:#06121a;
+  }
+}
+
+/* base */
+#fa_calc{box-sizing:border-box;} #fa_calc *{box-sizing:inherit;}
+
+/* card */
+#fa_calc .card{ border-radius:14px;padding:18px;margin-bottom:16px;border:1px solid var(--border);background:var(--bg1);box-shadow:0 6px 18px rgba(16,24,40,0.04);transition:box-shadow .18s ease, transform .12s ease; }
+#fa_calc .card:hover{ box-shadow:0 12px 30px rgba(16,24,40,0.06); transform:translateY(-2px); }
+#fa_calc .card.bg2{ background: linear-gradient(180deg, rgba(240,249,255,0.6), rgba(232,244,255,0.6)); }
+
+/* subtle separators */
+#fa_calc .card + .card::before{ content:""; display:block; height:1px; margin:-8px 24px 12px; background: linear-gradient(90deg, rgba(16,24,40,0.04), rgba(16,24,40,0.02)); border-radius:2px; pointer-events:none; }
+
+/* header/title */
+#fa_calc h2{ text-align:center;font-size:30px;margin:6px 0;font-weight:500;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.2px; }
+#fa_calc .subtitle{ text-align:center;color:var(--muted);font-size:13px;margin-bottom:10px; }
+#fa_calc .top-note{ text-align:center;color:var(--muted);font-size:12.5px;margin-top:6px; }
+
+/* section header */
+#fa_calc h3{ margin:0 0 12px;font-size:16px;font-weight:500;color:var(--accent);padding-left:10px;border-left:4px solid var(--accent); }
+
+/* grid */
+#fa_calc .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media(max-width:760px){ #fa_calc .form-grid{ grid-template-columns:1fr; } }
+
+/* labels & inputs */
+#fa_calc label{ display:block; font-weight:400; color:#111827; font-size:14px; margin-bottom:6px; }
+#fa_calc input, #fa_calc select{ width:100%; padding:12px 10px; border-radius:10px; border:1px solid var(--border); background:transparent; font-size:14px; color:#111827; }
+#fa_calc input::placeholder{ color:#9aa4b2; }
+#fa_calc input:focus, #fa_calc select:focus{ border-color:var(--accent2); outline:none; box-shadow:0 6px 18px rgba(10,152,214,0.06); }
+
+/* language btn */
+#fa_calc .lang-btn{ position:absolute; top:16px; right:12px; padding:6px 12px; font-size:13px; border-radius:20px; border:1px solid var(--border); background:#f3f4f6; color:#374151; cursor:pointer; font-weight:400; }
+@media(max-width:420px){ #fa_calc .lang-btn{ top:20px; right:12px; font-size:12px; padding:6px 10px; } }
+
+/* calc buttons */
+#fa_calc .controls{ display:flex; gap:12px; justify-content:center; margin-top:18px; flex-wrap:wrap; }
+#fa_calc .btn{ border-radius:26px; padding:12px 22px; font-weight:500; cursor:pointer; border:0; font-size:15px; box-shadow:0 6px 18px rgba(16,24,40,0.04); }
+#fa_calc .btn-primary{ background:linear-gradient(135deg,var(--accent),var(--accent2)); color:var(--btn-text); min-width:200px; display:inline-flex; align-items:center; gap:8px; justify-content:center; }
+#fa_calc .btn-ghost{ background:#eef2f7; color:var(--text); min-width:120px; }
+
+/* results styled as report */
+#fa_calc .results{ padding:22px; border-radius:14px; margin-top:16px; background:linear-gradient(180deg, rgba(240,248,255,0.95), rgba(225,240,250,0.95)); border-left:6px solid var(--accent2); box-shadow:0 8px 20px rgba(0,0,0,0.05); }
+#fa_calc .results hr{ border:0; border-top:1px solid rgba(0,0,0,0.08); margin:16px 0; }
+#fa_calc .result-item{ font-size:18px; color:#111827; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+#fa_calc .result-item .label{ font-weight:400; font-size:18px; color:#111827; flex:1; min-width:0; }
+#fa_calc .result-item .value{ font-weight:600; font-size:20px; color:var(--accent2); flex-shrink:0; }
+#fa_calc .breakdown{ margin-top:10px; padding:14px; border-radius:12px; background:rgba(245,247,250,0.95); border:1px dashed var(--border); }
+
+/* tooltip button (small ? icon) */
+#fa_calc .tooltip-btn{ display:inline-block; width:20px; height:20px; border-radius:50%; text-align:center; line-height:20px; background:#eef2f3; color:#486b79; font-weight:500; cursor:pointer; font-size:12px; border:1px solid rgba(0,0,0,0.04); margin-left:6px; vertical-align:middle; }
+#fa_calc .tooltip-btn:hover{ background:#dce3e6; }
+
+/* tooltip box */
+#fa_global_tooltip{ position:absolute; z-index:999999; max-width:520px; padding:12px 14px; border-radius:10px; background:#f5f6f7; color:var(--text); box-shadow:0 10px 26px rgba(0,0,0,0.18); font-size:14px; line-height:1.5; white-space:normal; word-break:break-word; display:none; }
+
+/* small screens adjustments */
+@media(max-width:480px){
+  #fa_global_tooltip{ max-width: calc(100vw - 40px); font-size:15px; }
+  #fa_calc h2{ font-size:22px; }
+  #fa_calc input,#fa_calc select{ padding:10px; font-size:15px; }
+  #fa_calc .btn{ padding:12px 18px; font-size:15px; }
+  #fa_calc .result-item .value{ font-size:18px; }
+}
+
+/* ensure readability in bg2 cards on devices that may render inputs oddly (iOS) */
+/* This block is narrowly targeted to mobile & iOS-like environments */
+@media(max-width:760px){
+  /* force labels/inputs/selects to use theme text color and strong rendering */
+  #fa_calc .card label,
+  #fa_calc .card input,
+  #fa_calc .card select,
+  #fa_calc .card.bg2 label,
+  #fa_calc .card.bg2 input,
+  #fa_calc .card.bg2 select {
+    color: var(--text) !important;
+    -webkit-text-fill-color: var(--text) !important; /* for iOS Safari */
+    caret-color: var(--text) !important;
+    -webkit-appearance: none !important;
+  }
+  /* subtle background for inputs in dark cards to increase contrast on iPhone */
+  #fa_calc .card.bg2 input,
+  #fa_calc .card.bg2 select {
+    background: rgba(255,255,255,0.02) !important;
+    border-color: rgba(255,255,255,0.06) !important;
+  }
+  /* tooltip box: force light background with dark text on mobile so tips are always readable */
+  #fa_global_tooltip {
+    background: rgba(255,255,255,0.98) !important;
+    color: #0b1220 !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
+  }
+  /* placeholder color strong on mobile */
+  #fa_calc input::placeholder { color: rgba(17,24,39,0.5) !important; }
+  /* make reset button text darker on mobile */
+  #fa_calc .btn-ghost { color:#111827 !important; font-weight:400 !important; background:#eef2f7 !important; }
+}
+
+/* iOS specific (if supported) - extra safety */
+@supports (-webkit-overflow-scrolling: touch) {
+  #fa_calc .card label,
+  #fa_calc .card input,
+  #fa_calc .card select {
+    -webkit-text-fill-color: var(--text) !important;
+  }
+}
+
+/* keep previous desktop/light-mode overrides */
+@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+  #fa_calc label { color:#111827 !important; font-weight:400; }
+  #fa_calc input, #fa_calc select { color:#111827 !important; }
+  #fa_calc .result-item .label { color:#111827 !important; font-weight:500; }
+  #fa_calc .result-item .value { color:#0a66c2 !important; font-weight:600; }
+}
+  
+  /* iPhone readability fix - only for light cards (bg2) */
+@media(max-width:760px){
+  #fa_calc .card.bg2 label,
+  #fa_calc .card.bg2 input,
+  #fa_calc .card.bg2 select {
+    color:#111827 !important;
+    -webkit-text-fill-color:#111827 !important; /* iOS Safari */
+    caret-color:#111827 !important;
+    font-weight:600;
+  }
+  #fa_calc .card.bg2 input,
+  #fa_calc .card.bg2 select {
+    background:rgba(0,0,0,0.02) !important;
+    border-color:rgba(0,0,0,0.1) !important;
+  }
+  #fa_calc .card.bg2 input::placeholder {
+    color:rgba(17,24,39,0.55) !important;
+  }
+}
+ 
+  
+  /* Fix result item alignment */
+#fa_calc .result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+#fa_calc .result-item .label {
+  flex: 1;
+  text-align: left;
+  white-space: normal;   /* allow wrap */
+  word-break: break-word;
+}
+
+#fa_calc .result-item .value {
+  flex-shrink: 0;
+  text-align: right;
+  white-space: nowrap;   /* keep numbers on one line */
+}
+
+/* Mobile adjustment: stack vertically */
+@media(max-width:480px){
+  #fa_calc .result-item {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  #fa_calc .result-item .label {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 4px;
+  }
+  #fa_calc .result-item .value {
+    text-align: right;
+    width: 100%;
+  }
+}
+
+/* ===== Surface Laptop Dark Mode Contrast Fix ===== */
+@media(prefers-color-scheme:dark){
+  /* Tooltip: 保证背景亮、文字深色 */
+  #fa_global_tooltip {
+    background:#f9fafb !important;
+    color:#111827 !important;
+    box-shadow:0 6px 20px rgba(0,0,0,0.3) !important;
+  }
+
+  /* 深色功能区文字：保证高对比度 */
+  #fa_calc .card.bg2 label,
+  #fa_calc .card.bg2 input,
+  #fa_calc .card.bg2 select {
+    color:#f9fafb !important;
+    -webkit-text-fill-color:#f9fafb !important;
+    caret-color:#f9fafb !important;
+    font-weight:600 !important;
+  }
+
+  /* 输入框背景和边框：增加浅灰衬托 */
+  #fa_calc .card.bg2 input,
+  #fa_calc .card.bg2 select {
+    background:rgba(255,255,255,0.08) !important;
+    border-color:rgba(255,255,255,0.2) !important;
+  }
+
+  /* Placeholder 对比度 */
+  #fa_calc .card.bg2 input::placeholder {
+    color:rgba(249,250,251,0.65) !important;
+  }
+}
+  
+  /* ===== Surface Laptop Full Dark Mode Fix ===== */
+@media(prefers-color-scheme:dark){
+
+  /* 所有功能区文字统一高对比度 */
+  #fa_calc label,
+  #fa_calc input,
+  #fa_calc select,
+  #fa_calc h3,
+  #fa_calc h2,
+  #fa_calc .subtitle,
+  #fa_calc .top-note {
+    color:#f9fafb !important;
+    -webkit-text-fill-color:#f9fafb !important; /* iOS + Surface Safari/Edge */
+    caret-color:#f9fafb !important;
+  }
+
+  /* 输入框背景和边框：让文字脱颖而出 */
+  #fa_calc input,
+  #fa_calc select {
+    background:rgba(255,255,255,0.08) !important;
+    border-color:rgba(255,255,255,0.25) !important;
+  }
+
+  /* 输入框 placeholder 对比度增强 */
+  #fa_calc input::placeholder {
+    color:rgba(249,250,251,0.65) !important;
+  }
+
+  /* 重置按钮：强制深色背景+白字 */
+  #fa_calc .btn-ghost {
+    background:#374151 !important;
+    color:#f9fafb !important;
+    font-weight:400 !important;
+  }
+
+  /* tooltip 提示文字可读 */
+  #fa_global_tooltip {
+    background:#f9fafb !important;
+    color:#111827 !important;
+    box-shadow:0 6px 20px rgba(0,0,0,0.3) !important;
+  }
+}
+
+  /* ===== Surface Laptop Deep Dark Mode - Fix for bg2 cards & tooltip buttons ===== */
+@media(prefers-color-scheme:dark){
+
+  /* 小问号按钮在深色模式下：深色圆圈 + 白字 */
+  #fa_calc .tooltip-btn {
+    background:#374151 !important;   /* 深灰圆圈 */
+    color:#f9fafb !important;        /* 白色问号 */
+    border:1px solid rgba(255,255,255,0.3) !important;
+  }
+  #fa_calc .tooltip-btn:hover {
+    background:#4b5563 !important;
+  }
+
+  /* 浅色功能区 (bg2) 在深色模式下，改为深色卡片 */
+  #fa_calc .card.bg2 {
+    background:#111827 !important;   /* 深灰背景 */
+    border:1px solid rgba(255,255,255,0.15) !important;
+  }
+  #fa_calc .card.bg2 label,
+  #fa_calc .card.bg2 input,
+  #fa_calc .card.bg2 select {
+    color:#f9fafb !important;
+    -webkit-text-fill-color:#f9fafb !important;
+    caret-color:#f9fafb !important;
+  }
+  #fa_calc .card.bg2 input,
+  #fa_calc .card.bg2 select {
+    background:rgba(255,255,255,0.08) !important;
+    border-color:rgba(255,255,255,0.25) !important;
+  }
+  #fa_calc .card.bg2 input::placeholder {
+    color:rgba(249,250,251,0.6) !important;
+  }
+}
+
+  /* ===== Fix: Surface Laptop 深色模式 下拉菜单选项对比度 ===== */
+@media(prefers-color-scheme:dark){
+  #fa_calc select {
+    background:#1f2937 !important;   /* 深灰背景 */
+    color:#f9fafb !important;        /* 白色文字 */
+    border:1px solid rgba(255,255,255,0.25) !important;
+  }
+  #fa_calc option {
+    background:#111827 !important;   /* 深色背景 */
+    color:#f9fafb !important;        /* 白色文字 */
+  }
+  #fa_calc select:focus {
+    outline:2px solid var(--accent2) !important; /* 聚焦高亮 */
+    outline-offset:2px;
+  }
+}
+
+  
+</style>
+
+
+  <style>
     /* ======================================================
        Scholarship Page – Production (Match Volunteer/Donation)
        Notes:
@@ -384,13 +711,18 @@
 }
 
 
+
+
   </style>
 </head>
 
+<body class="page-scholarship">
 
-<body>
+  <!-- NAV (keep your existing nav from other pages) -->
+  <html class="nav-preload"></html>
+  <!-- 你已有统一导航，这里直接复用你当前项目的 nav 代码块即可 -->
+ <!-- NAV -->
 
-<!-- NAV -->
 <nav id="topNav" class="nav--transparent">
   <div class="nav-inner">
 
@@ -398,7 +730,7 @@
     <div class="brand">
       <a href="/index.html#home" class="brand">
         <img src="/assets/img/superedu-logo.png" alt="Edunova" class="logo-img" />
-        <span class="brand-text">Finova</span>
+        <span class="brand-text">Edunova</span>
       </a>
     </div>
 
@@ -427,26 +759,26 @@
   <div class="dropdown-menu">
     <a href="/education.html"
        id="navEduCenter"
-       data-en="FinCenter"
-       data-zh="财富中心">
+       data-en="EduCenter"
+       data-zh="教育中心">
       EduCenter
     </a>
 
     <a href="/community.html"
        id="navEduCommunity"
-       data-en="FinCommunity"
-       data-zh="财富社区">
+       data-en="EduCommunity"
+       data-zh="教育社区">
       EduCommunity
     </a>
 
     <a href="/forum.html"
        id="navForum"
-       data-en="FinForum"
-       data-zh="财富论坛">
+       data-en="EduForum"
+       data-zh="教育论坛">
       EduForum 
     </a>
 
-    <a href="/plans.html" data-en="FinPlanning" data-zh="财务规划"> Events</a>
+    <a href="/events.html" data-en="Events" data-zh="活动"> Events</a>
     
   </div>
 
@@ -466,21 +798,21 @@
 </span>
 
   <div class="dropdown-menu">
-    <a href="/zoom.html"
-       data-en="Zoom&Salon"
-       data-zh="讲座与沙龙">
+    <a href="/volunteer.html"
+       data-en="Volunteer"
+       data-zh="志愿者">
       Volunteer
     </a>
 
-    <a href="/events.html"
-       data-en="Events"
-       data-zh="重要活动">
+    <a href="/donation.html"
+       data-en="Donation"
+       data-zh="捐赠">
       Donation
     </a>
 
-    <a href="/aid.html"
-       data-en="Financial Aid"
-       data-zh="助学金计算">
+    <a href="/scholarship.html"
+       data-en="scholarship"
+       data-zh="奖学金">
       scholarship
     </a>
 
@@ -525,10 +857,10 @@
     <!-- Programs Accordion -->
     <details class="mobile-group">
       <summary data-en="Programs" data-zh="项目">Programs</summary>
-      <a href="/education.html" id="mobileEduCenter" data-en="FinCenter" data-zh="财富中心">EduCenter</a>
-      <a href="/community.html" id="mobileEduCommunity" data-en="FinCommunity" data-zh="财富社区">EduCommunity</a>
-      <a href="/forum.html" id="mobileForum" data-en="FinForum" data-zh="财富论坛">EduForum</a>
-      <a href="/plans.html" data-en="FinPlanning" data-zh="财务规划">Events</a>
+      <a href="/education.html" id="mobileEduCenter" data-en="EduCenter" data-zh="教育中心">EduCenter</a>
+      <a href="/community.html" id="mobileEduCommunity" data-en="EduCommunity" data-zh="教育社区">EduCommunity</a>
+      <a href="/forum.html" id="mobileForum" data-en="EduForum" data-zh="教育论坛">EduForum</a>
+      <a href="/events.html" data-en="Events" data-zh="活动">Events</a>
     </details>
 
     <!-- Service -->
@@ -540,11 +872,11 @@
     <!-- Get Involved Accordion -->
     <details class="mobile-group">
       <summary data-en="Get Involved" data-zh="参与方式">Get Involved</summary>
-      <a href="/zoom.html" data-en="Zoom&Salon" data-zh="讲座与沙龙">Volunteer</a>
-      <a href="/events.html" data-en="Events" data-zh="重要活动">Donation</a>
-      <a href="/aid.html"
-       data-en="Financial Aid"
-       data-zh="计算助学金">
+      <a href="/volunteer.html" data-en="Volunteer" data-zh="志愿者">Volunteer</a>
+      <a href="/donation.html" data-en="Donation" data-zh="捐赠">Donation</a>
+      <a href="/scholarship.html"
+       data-en="scholarship"
+       data-zh="奖学金">
       scholarship
     </a>
       <a href="/index.html#resources" data-en="Resources" data-zh="资源">Resources</a>
@@ -561,13 +893,15 @@
       <button class="btn btn-ghost" id="mobileRegister" data-en="Register/Join" data-zh="注册/加入">
         Register / Join
       </button>
-      <button class="btn" id="mobileUnlock" data-en="Unlock Wealth" data-zh="解锁财富">
+      <button class="btn" id="mobileUnlock" data-en="Unlock Education" data-zh="解锁教育">
         Unlock Education
       </button>
     </div>
   </div>
 </nav>
 
+  <!-- Reserved space for fixed nav -->
+  <div class="top-offset"></div>
 
   <!-- HERO -->
   <header class="hero">
@@ -613,333 +947,10 @@
 
 
 
+
+  
 <!--START: Step7.0-->
-<div id="fa_calc" style="font-family: Helvetica Neue,
-    PingFang SC,
-    Noto Sans SC,
-    sans-serif;
-    margin: 22px auto; max-width: 980px; position: relative;"></div>
 
-<style>
-:root{
-  --bg1:#ffffff; --bg2:#f7fbff;
-  --text:#1e293b; --muted:#6b7280;
-  --accent:#1f6fd7; --accent2:#0a98d6;
-  --border:#e2e8f0; --btn-text:#fff;
-}
-
-/* dark mode */
-@media(prefers-color-scheme:dark){
-  :root{
-    --bg1:#071021; --bg2:#0b1a2a;
-    --text:#e6f6ff; --muted:#9fb4c9;
-    --accent:#3aa0ff; --accent2:#61b7ff;
-    --border:#183041; --btn-text:#06121a;
-  }
-}
-
-/* base */
-#fa_calc{box-sizing:border-box;} #fa_calc *{box-sizing:inherit;}
-
-/* card */
-#fa_calc .card{ border-radius:14px;padding:18px;margin-bottom:16px;border:1px solid var(--border);background:var(--bg1);box-shadow:0 6px 18px rgba(16,24,40,0.04);transition:box-shadow .18s ease, transform .12s ease; }
-#fa_calc .card:hover{ box-shadow:0 12px 30px rgba(16,24,40,0.06); transform:translateY(-2px); }
-#fa_calc .card.bg2{ background: linear-gradient(180deg, rgba(240,249,255,0.6), rgba(232,244,255,0.6)); }
-
-/* subtle separators */
-#fa_calc .card + .card::before{ content:""; display:block; height:1px; margin:-8px 24px 12px; background: linear-gradient(90deg, rgba(16,24,40,0.04), rgba(16,24,40,0.02)); border-radius:2px; pointer-events:none; }
-
-/* header/title */
-#fa_calc h2{ text-align:center;font-size:30px;margin:6px 0;font-weight:500;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.2px; }
-#fa_calc .subtitle{ text-align:center;color:var(--muted);font-size:13px;margin-bottom:10px; }
-#fa_calc .top-note{ text-align:center;color:var(--muted);font-size:12.5px;margin-top:6px; }
-
-/* section header */
-#fa_calc h3{ margin:0 0 12px;font-size:16px;font-weight:500;color:var(--accent);padding-left:10px;border-left:4px solid var(--accent); }
-
-/* grid */
-#fa_calc .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-@media(max-width:760px){ #fa_calc .form-grid{ grid-template-columns:1fr; } }
-
-/* labels & inputs */
-#fa_calc label{ display:block; font-weight:400; color:#111827; font-size:14px; margin-bottom:6px; }
-#fa_calc input, #fa_calc select{ width:100%; padding:12px 10px; border-radius:10px; border:1px solid var(--border); background:transparent; font-size:14px; color:#111827; }
-#fa_calc input::placeholder{ color:#9aa4b2; }
-#fa_calc input:focus, #fa_calc select:focus{ border-color:var(--accent2); outline:none; box-shadow:0 6px 18px rgba(10,152,214,0.06); }
-
-/* language btn */
-#fa_calc .lang-btn{ position:absolute; top:16px; right:12px; padding:6px 12px; font-size:13px; border-radius:20px; border:1px solid var(--border); background:#f3f4f6; color:#374151; cursor:pointer; font-weight:400; }
-@media(max-width:420px){ #fa_calc .lang-btn{ top:20px; right:12px; font-size:12px; padding:6px 10px; } }
-
-/* calc buttons */
-#fa_calc .controls{ display:flex; gap:12px; justify-content:center; margin-top:18px; flex-wrap:wrap; }
-#fa_calc .btn{ border-radius:26px; padding:12px 22px; font-weight:500; cursor:pointer; border:0; font-size:15px; box-shadow:0 6px 18px rgba(16,24,40,0.04); }
-#fa_calc .btn-primary{ background:linear-gradient(135deg,var(--accent),var(--accent2)); color:var(--btn-text); min-width:200px; display:inline-flex; align-items:center; gap:8px; justify-content:center; }
-#fa_calc .btn-ghost{ background:#eef2f7; color:var(--text); min-width:120px; }
-
-/* results styled as report */
-#fa_calc .results{ padding:22px; border-radius:14px; margin-top:16px; background:linear-gradient(180deg, rgba(240,248,255,0.95), rgba(225,240,250,0.95)); border-left:6px solid var(--accent2); box-shadow:0 8px 20px rgba(0,0,0,0.05); }
-#fa_calc .results hr{ border:0; border-top:1px solid rgba(0,0,0,0.08); margin:16px 0; }
-#fa_calc .result-item{ font-size:18px; color:#111827; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
-#fa_calc .result-item .label{ font-weight:400; font-size:18px; color:#111827; flex:1; min-width:0; }
-#fa_calc .result-item .value{ font-weight:600; font-size:20px; color:var(--accent2); flex-shrink:0; }
-#fa_calc .breakdown{ margin-top:10px; padding:14px; border-radius:12px; background:rgba(245,247,250,0.95); border:1px dashed var(--border); }
-
-/* tooltip button (small ? icon) */
-#fa_calc .tooltip-btn{ display:inline-block; width:20px; height:20px; border-radius:50%; text-align:center; line-height:20px; background:#eef2f3; color:#486b79; font-weight:500; cursor:pointer; font-size:12px; border:1px solid rgba(0,0,0,0.04); margin-left:6px; vertical-align:middle; }
-#fa_calc .tooltip-btn:hover{ background:#dce3e6; }
-
-/* tooltip box */
-#fa_global_tooltip{ position:absolute; z-index:999999; max-width:520px; padding:12px 14px; border-radius:10px; background:#f5f6f7; color:var(--text); box-shadow:0 10px 26px rgba(0,0,0,0.18); font-size:14px; line-height:1.5; white-space:normal; word-break:break-word; display:none; }
-
-/* small screens adjustments */
-@media(max-width:480px){
-  #fa_global_tooltip{ max-width: calc(100vw - 40px); font-size:15px; }
-  #fa_calc h2{ font-size:22px; }
-  #fa_calc input,#fa_calc select{ padding:10px; font-size:15px; }
-  #fa_calc .btn{ padding:12px 18px; font-size:15px; }
-  #fa_calc .result-item .value{ font-size:18px; }
-}
-
-/* ensure readability in bg2 cards on devices that may render inputs oddly (iOS) */
-/* This block is narrowly targeted to mobile & iOS-like environments */
-@media(max-width:760px){
-  /* force labels/inputs/selects to use theme text color and strong rendering */
-  #fa_calc .card label,
-  #fa_calc .card input,
-  #fa_calc .card select,
-  #fa_calc .card.bg2 label,
-  #fa_calc .card.bg2 input,
-  #fa_calc .card.bg2 select {
-    color: var(--text) !important;
-    -webkit-text-fill-color: var(--text) !important; /* for iOS Safari */
-    caret-color: var(--text) !important;
-    -webkit-appearance: none !important;
-  }
-  /* subtle background for inputs in dark cards to increase contrast on iPhone */
-  #fa_calc .card.bg2 input,
-  #fa_calc .card.bg2 select {
-    background: rgba(255,255,255,0.02) !important;
-    border-color: rgba(255,255,255,0.06) !important;
-  }
-  /* tooltip box: force light background with dark text on mobile so tips are always readable */
-  #fa_global_tooltip {
-    background: rgba(255,255,255,0.98) !important;
-    color: #0b1220 !important;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
-  }
-  /* placeholder color strong on mobile */
-  #fa_calc input::placeholder { color: rgba(17,24,39,0.5) !important; }
-  /* make reset button text darker on mobile */
-  #fa_calc .btn-ghost { color:#111827 !important; font-weight:400 !important; background:#eef2f7 !important; }
-}
-
-/* iOS specific (if supported) - extra safety */
-@supports (-webkit-overflow-scrolling: touch) {
-  #fa_calc .card label,
-  #fa_calc .card input,
-  #fa_calc .card select {
-    -webkit-text-fill-color: var(--text) !important;
-  }
-}
-
-/* keep previous desktop/light-mode overrides */
-@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-  #fa_calc label { color:#111827 !important; font-weight:400; }
-  #fa_calc input, #fa_calc select { color:#111827 !important; }
-  #fa_calc .result-item .label { color:#111827 !important; font-weight:500; }
-  #fa_calc .result-item .value { color:#0a66c2 !important; font-weight:600; }
-}
-  
-  /* iPhone readability fix - only for light cards (bg2) */
-@media(max-width:760px){
-  #fa_calc .card.bg2 label,
-  #fa_calc .card.bg2 input,
-  #fa_calc .card.bg2 select {
-    color:#111827 !important;
-    -webkit-text-fill-color:#111827 !important; /* iOS Safari */
-    caret-color:#111827 !important;
-    font-weight:600;
-  }
-  #fa_calc .card.bg2 input,
-  #fa_calc .card.bg2 select {
-    background:rgba(0,0,0,0.02) !important;
-    border-color:rgba(0,0,0,0.1) !important;
-  }
-  #fa_calc .card.bg2 input::placeholder {
-    color:rgba(17,24,39,0.55) !important;
-  }
-}
- 
-  
-  /* Fix result item alignment */
-#fa_calc .result-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: nowrap;
-}
-
-#fa_calc .result-item .label {
-  flex: 1;
-  text-align: left;
-  white-space: normal;   /* allow wrap */
-  word-break: break-word;
-}
-
-#fa_calc .result-item .value {
-  flex-shrink: 0;
-  text-align: right;
-  white-space: nowrap;   /* keep numbers on one line */
-}
-
-/* Mobile adjustment: stack vertically */
-@media(max-width:480px){
-  #fa_calc .result-item {
-    flex-direction: column;
-    align-items: flex-end;
-  }
-  #fa_calc .result-item .label {
-    width: 100%;
-    text-align: left;
-    margin-bottom: 4px;
-  }
-  #fa_calc .result-item .value {
-    text-align: right;
-    width: 100%;
-  }
-}
-
-/* ===== Surface Laptop Dark Mode Contrast Fix ===== */
-@media(prefers-color-scheme:dark){
-  /* Tooltip: 保证背景亮、文字深色 */
-  #fa_global_tooltip {
-    background:#f9fafb !important;
-    color:#111827 !important;
-    box-shadow:0 6px 20px rgba(0,0,0,0.3) !important;
-  }
-
-  /* 深色功能区文字：保证高对比度 */
-  #fa_calc .card.bg2 label,
-  #fa_calc .card.bg2 input,
-  #fa_calc .card.bg2 select {
-    color:#f9fafb !important;
-    -webkit-text-fill-color:#f9fafb !important;
-    caret-color:#f9fafb !important;
-    font-weight:600 !important;
-  }
-
-  /* 输入框背景和边框：增加浅灰衬托 */
-  #fa_calc .card.bg2 input,
-  #fa_calc .card.bg2 select {
-    background:rgba(255,255,255,0.08) !important;
-    border-color:rgba(255,255,255,0.2) !important;
-  }
-
-  /* Placeholder 对比度 */
-  #fa_calc .card.bg2 input::placeholder {
-    color:rgba(249,250,251,0.65) !important;
-  }
-}
-  
-  /* ===== Surface Laptop Full Dark Mode Fix ===== */
-@media(prefers-color-scheme:dark){
-
-  /* 所有功能区文字统一高对比度 */
-  #fa_calc label,
-  #fa_calc input,
-  #fa_calc select,
-  #fa_calc h3,
-  #fa_calc h2,
-  #fa_calc .subtitle,
-  #fa_calc .top-note {
-    color:#f9fafb !important;
-    -webkit-text-fill-color:#f9fafb !important; /* iOS + Surface Safari/Edge */
-    caret-color:#f9fafb !important;
-  }
-
-  /* 输入框背景和边框：让文字脱颖而出 */
-  #fa_calc input,
-  #fa_calc select {
-    background:rgba(255,255,255,0.08) !important;
-    border-color:rgba(255,255,255,0.25) !important;
-  }
-
-  /* 输入框 placeholder 对比度增强 */
-  #fa_calc input::placeholder {
-    color:rgba(249,250,251,0.65) !important;
-  }
-
-  /* 重置按钮：强制深色背景+白字 */
-  #fa_calc .btn-ghost {
-    background:#374151 !important;
-    color:#f9fafb !important;
-    font-weight:400 !important;
-  }
-
-  /* tooltip 提示文字可读 */
-  #fa_global_tooltip {
-    background:#f9fafb !important;
-    color:#111827 !important;
-    box-shadow:0 6px 20px rgba(0,0,0,0.3) !important;
-  }
-}
-
-  /* ===== Surface Laptop Deep Dark Mode - Fix for bg2 cards & tooltip buttons ===== */
-@media(prefers-color-scheme:dark){
-
-  /* 小问号按钮在深色模式下：深色圆圈 + 白字 */
-  #fa_calc .tooltip-btn {
-    background:#374151 !important;   /* 深灰圆圈 */
-    color:#f9fafb !important;        /* 白色问号 */
-    border:1px solid rgba(255,255,255,0.3) !important;
-  }
-  #fa_calc .tooltip-btn:hover {
-    background:#4b5563 !important;
-  }
-
-  /* 浅色功能区 (bg2) 在深色模式下，改为深色卡片 */
-  #fa_calc .card.bg2 {
-    background:#111827 !important;   /* 深灰背景 */
-    border:1px solid rgba(255,255,255,0.15) !important;
-  }
-  #fa_calc .card.bg2 label,
-  #fa_calc .card.bg2 input,
-  #fa_calc .card.bg2 select {
-    color:#f9fafb !important;
-    -webkit-text-fill-color:#f9fafb !important;
-    caret-color:#f9fafb !important;
-  }
-  #fa_calc .card.bg2 input,
-  #fa_calc .card.bg2 select {
-    background:rgba(255,255,255,0.08) !important;
-    border-color:rgba(255,255,255,0.25) !important;
-  }
-  #fa_calc .card.bg2 input::placeholder {
-    color:rgba(249,250,251,0.6) !important;
-  }
-}
-
-  /* ===== Fix: Surface Laptop 深色模式 下拉菜单选项对比度 ===== */
-@media(prefers-color-scheme:dark){
-  #fa_calc select {
-    background:#1f2937 !important;   /* 深灰背景 */
-    color:#f9fafb !important;        /* 白色文字 */
-    border:1px solid rgba(255,255,255,0.25) !important;
-  }
-  #fa_calc option {
-    background:#111827 !important;   /* 深色背景 */
-    color:#f9fafb !important;        /* 白色文字 */
-  }
-  #fa_calc select:focus {
-    outline:2px solid var(--accent2) !important; /* 聚焦高亮 */
-    outline-offset:2px;
-  }
-}
-
-  
-</style>
 
 <script>
 (function(){
@@ -1294,7 +1305,172 @@
 </script>
 <!--END: Step7.0-->
 
-<!-- FOOTER -->
+
+  <!-- Zone A: Overview -->
+  <section class="zone zone-a">
+    <div class="zone-inner">
+      <h2 data-en="Program Overview" data-zh="项目概览">Program Overview</h2>
+      <p class="muted"
+         data-en="Edunova scholarships are designed to encourage disciplined learning, celebrate authentic effort, and reduce barriers for families who face heavy educational expenses."
+         data-zh="Edunova 奖学金旨在鼓励自律学习、认可真实努力，并帮助学费压力较大的家庭减轻教育负担。">
+        Edunova scholarships are designed to encourage disciplined learning, celebrate authentic effort, and reduce barriers for families who face heavy educational expenses.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="icon">🎓</div>
+          <h3 data-en="For Middle & High School Students" data-zh="面向初中与高中学生">For Middle & High School Students</h3>
+          <p data-en="Academic excellence, consistent effort, and positive impact. Some awards may be issued immediately; certain high school awards can be released after graduation when students begin college."
+             data-zh="依据学业表现、长期努力与正向影响评定。部分奖学金可即时发放；部分高中奖学金可在高中毕业、进入大学后发放。">
+            Academic excellence, consistent effort, and positive impact. Some awards may be issued immediately; certain high school awards can be released after graduation when students begin college.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🏛️</div>
+          <h3 data-en="For College & University Students" data-zh="面向大学学生">For College & University Students</h3>
+          <p data-en="Recognizing strong GPA, academic progress, leadership, research/service involvement, and persistence through challenges."
+             data-zh="重点考察 GPA、学业进步、领导力、科研/服务参与，以及面对挑战的持续投入与韧性。">
+            Recognizing strong GPA, academic progress, leadership, research/service involvement, and persistence through challenges.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">💛</div>
+          <h3 data-en="Need-Based Special Aid" data-zh="基于家庭经济的特别奖助">Need-Based Special Aid</h3>
+          <p data-en="For families under financial pressure, we offer special scholarships/grants to reduce tuition burdens and keep education accessible."
+             data-zh="针对低收入或学费负担压力较大的家庭，提供特别奖学金/助学金，帮助学生持续完成学业。">
+            For families under financial pressure, we offer special scholarships/grants to reduce tuition burdens and keep education accessible.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zone B: Criteria -->
+  <section class="zone zone-b">
+    <div class="zone-inner">
+      <h2 data-en="Eligibility & Evaluation" data-zh="申请条件与评定标准">Eligibility & Evaluation</h2>
+      <p class="muted"
+         data-en="We emphasize authenticity and long-term development. Evaluation may include GPA/grades, growth trajectory, service/leadership, and the applicant’s educational goals."
+         data-zh="我们强调真实性与长期成长。评定可能包含 GPA/成绩、成长轨迹、服务与领导力、以及申请者的教育目标。">
+        We emphasize authenticity and long-term development. Evaluation may include GPA/grades, growth trajectory, service/leadership, and the applicant’s educational goals.
+      </p>
+
+      <div class="highlight">
+        <p class="muted" style="margin:0"
+           data-en="Typical criteria (varies by scholarship):"
+           data-zh="常见评定维度（不同奖项略有不同）：">
+          Typical criteria (varies by scholarship):
+        </p>
+        <ul class="bullet">
+          <li data-en="Academic performance (e.g., GPA, progress, course rigor)"
+              data-zh="学业表现（如 GPA、进步情况、课程挑战度）">
+            Academic performance (e.g., GPA, progress, course rigor)
+          </li>
+          <li data-en="Consistency & discipline (attendance, learning habits, long-term effort)"
+              data-zh="稳定性与自律（出勤、学习习惯、长期投入）">
+            Consistency & discipline (attendance, learning habits, long-term effort)
+          </li>
+          <li data-en="Leadership & service (school/community involvement)"
+              data-zh="领导力与服务（校园/社区参与）">
+            Leadership & service (school/community involvement)
+          </li>
+          <li data-en="Financial need (for special aid scholarships)"
+              data-zh="家庭经济情况（用于特别奖助学金评定）">
+            Financial need (for special aid scholarships)
+          </li>
+          <li data-en="Clear goals (education plan and motivation)"
+              data-zh="目标清晰（教育规划与学习动机）">
+            Clear goals (education plan and motivation)
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zone C: How Awards Work -->
+  <section class="zone zone-c">
+    <div class="zone-inner">
+      <h2 data-en="How Scholarships Are Awarded" data-zh="奖学金如何发放">How Scholarships Are Awarded</h2>
+      <p class="muted"
+         data-en="Different awards may have different timelines. For high school students, some scholarships are awarded immediately; others are released after graduation when the student begins college."
+         data-zh="不同奖项可能采用不同的时间安排。针对高中学生：部分奖学金评定后即时发放；部分奖项可在高中毕业、进入大学后发放。">
+        Different awards may have different timelines. For high school students, some scholarships are awarded immediately; others are released after graduation when the student begins college.
+      </p>
+
+
+
+
+      
+      <div class="cards">
+        <div class="card">
+          <div class="icon">⏱️</div>
+          <h3 data-en="Immediate Awards" data-zh="即时发放">Immediate Awards</h3>
+          <p data-en="Issued shortly after review to recognize current achievement and support ongoing learning."
+             data-zh="评定通过后尽快发放，用于认可当下成果并支持持续学习。">
+            Issued shortly after review to recognize current achievement and support ongoing learning.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🎒</div>
+          <h3 data-en="College-Start Release" data-zh="入学后发放">College-Start Release</h3>
+          <p data-en="Some high school scholarships are reserved and released when the student officially begins college."
+             data-zh="部分高中奖学金将预留并在学生正式入学大学后发放。">
+            Some high school scholarships are reserved and released when the student officially begins college.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">📄</div>
+          <h3 data-en="Transparent & Documented" data-zh="透明可追踪">Transparent & Documented</h3>
+          <p data-en="We keep records and follow our nonprofit governance standards to ensure fairness, clarity, and accountability."
+             data-zh="我们遵循非营利治理规范，保留记录，确保公平、清晰与可追责。">
+            We keep records and follow our nonprofit governance standards to ensure fairness, clarity, and accountability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zone D: Support / Donate -->
+  <section class="zone zone-d">
+    <div class="zone-inner">
+      <div class="cta">
+        <h2 data-en="Support Student Scholarships" data-zh="支持学生奖学金">Support Student Scholarships</h2>
+
+        <p data-en="Every contribution helps us award scholarships to students. To donate via Zelle or check, please contact us. Donations of $50 or more may receive an Edunova logo gift (while supplies last)."
+           data-zh="每一笔捐助都会用于奖学金发放。若通过 Zelle 或支票捐款，请与我们联系。捐款 $50 或以上，可获 Edunova Logo 礼品（数量有限，送完为止）。">
+          Every contribution helps us award scholarships to students. To donate via Zelle or check, please contact us. Donations of $50 or more may receive an Edunova logo gift (while supplies last).
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="muted" style="margin:0"
+           data-en="Contact: Phone 1 916-793-0676 (Text) • WeChat Leon_Song_PhD"
+           data-zh="联系：电话 1 916-793-0676（短信）• 微信 Leon_Song_PhD">
+          Contact: Phone 1 916-793-0676 (Text) • WeChat Leon_Song_PhD
+        </p>
+
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="/donation.html"
+             data-en="Donate Now"
+             data-zh="立即捐助">
+            Donate Now
+          </a>
+          <a class="btn btn-secondary" href="/index.html#contact"
+             data-en="Contact Us"
+             data-zh="联系我们">
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (reuse your site footer if you have one) -->
+  <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
 
