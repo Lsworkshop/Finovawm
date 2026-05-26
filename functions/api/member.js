@@ -56,12 +56,12 @@ async function sendVerificationEmail({
   lastName
 }) {
 
-  const baseUrl = "https://edunovafdn.org";
+  const baseUrl = "https://finovawm.com";
   const verifyLink =
     `${baseUrl}/api/verify-email?token=${token}`;
 
   const body = new URLSearchParams();
-  body.append("from", "Edunova Education <team@edunovafdn.org>");
+  body.append("from", "Edunova Education <team@finovawm.com>");
   body.append("to", email);
   body.append("subject", "✅Please verify your email | 请验证您的邮箱");
 
@@ -108,10 +108,10 @@ async function sendVerificationEmail({
     </p>
     <p style="margin-top: 32px;">
       If you have any questions, please feel free to reply to this email directly：
-      <strong>team@edunovafdn.org</strong>
+      <strong>team@finovawm.com</strong>
     </p>
     <p style="margin-top: 24px;">
-          ——<strong>超能教育 · Edunova Foundation</strong>
+          ——<strong>钞能财富管理· Finova Weatlth Management</strong>
     </p>
     <hr style="margin: 32px 0; border: none; border-top: 1px solid #e5e7eb;" />
     <p>
@@ -143,7 +143,7 @@ async function sendVerificationEmail({
       该验证链接将在 <strong>24 小时后失效</strong>。
     </p>
     <p style="margin-top: 32px;">
-      如有任何问题，欢迎直接回复本邮件：<strong>team@edunovafdn.org</strong>
+      如有任何问题，欢迎直接回复本邮件：<strong>team@finovawm.com</strong>
     </p>
     <p style="margin-top: 24px;">
           ——<strong>超能教育 · Edunova Foundation</strong>
