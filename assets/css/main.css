@@ -122,20 +122,36 @@ html, body {
 /* =========================
    MOBILE OPTIMIZATION
 ========================= */
+/* =========================
+   MOBILE HERO SOCIAL
+========================= */
 @media (max-width: 768px) {
 
   .hero-social {
-    right: 14px;
-    gap: 12px;
+
+    top: 62%;
+
+    right: 12px;
+
+    transform: translateY(-50%);
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
   }
 
   .social-icon {
+
     width: 34px;
     height: 34px;
-    font-size: 16px;
-  }
-}
 
+    font-size: 15px;
+  }
+
+}
 
 
 nav a {
@@ -1837,20 +1853,31 @@ body.register-page .register-card {
 /* =========================
    FOOTER SOCIAL BAR
 ========================= */
+/* =========================
+   FOOTER SOCIAL BAR
+========================= */
 .footer-social-bar {
+
   width: 100%;
 
   display: flex;
+
   justify-content: center;
+
   align-items: center;
 
-  gap: 18px;
+  flex-wrap: wrap;
 
-  padding: 22px 0;
+  gap: 24px;
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 26px 20px;
+
+  margin: 0 auto;
+
+  text-align: center;
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-
 /* =========================
    ICON BASE STYLE
 ========================= */
@@ -1900,18 +1927,25 @@ footer {
 /* =========================
    MOBILE RESPONSIVE
 ========================= */
+/* =========================
+   MOBILE FOOTER SOCIAL
+========================= */
 @media (max-width: 768px) {
 
   .footer-social-bar {
-    flex-wrap: wrap;
-    gap: 12px;
+
+    gap: 10px;
+
     padding: 18px 10px;
+
   }
 
   .footer-icon {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+
+    width: 34px;
+    height: 34px;
+
+    font-size: 15px;
   }
 
 }
