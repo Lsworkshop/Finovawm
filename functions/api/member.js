@@ -80,7 +80,7 @@ async function sendVerificationEmail({
     </p>
 
     <p>
-      Thank you for registering with <strong>Edunova Foundation</strong>.
+      Thank you for registering with <strong>Finova Wealth Management</strong>.
     </p>
 
     <p>
@@ -118,7 +118,7 @@ async function sendVerificationEmail({
       您好，<strong>${firstName} ${lastName}</strong>：
     </p>
     <p>
-      感谢您注册 <strong>超能教育（Edunova Foundation）</strong>。
+      感谢您注册 <strong>钞能财富（Finova Wealth）</strong>。
     </p>
     <p>
       请点击下方按钮完成邮箱验证，以正式激活您的账户：
@@ -146,7 +146,7 @@ async function sendVerificationEmail({
       如有任何问题，欢迎直接回复本邮件：<strong>team@finovawm.com</strong>
     </p>
     <p style="margin-top: 24px;">
-          ——<strong>超能教育 · Edunova Foundation</strong>
+          ——<strong>>钞能财富管理· Finova Wealth Management</strong>
     </p>
   </div>
   `
