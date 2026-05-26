@@ -1833,3 +1833,85 @@ body.register-page .register-card {
   transform:translateY(-2px);
   opacity:0.92;
 }
+
+/* =========================
+   FOOTER SOCIAL BAR
+========================= */
+.footer-social-bar {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 22px 0;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* =========================
+   ICON BASE STYLE
+========================= */
+.footer-icon {
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 18px;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  text-decoration: none;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(6px);
+
+  transition: all 0.3s ease;
+}
+
+/* =========================
+   HOVER EFFECT (统一 Header 风格)
+========================= */
+.footer-icon:hover {
+  color: #ffffff;
+
+  transform: translateY(-3px) scale(1.08);
+
+  background: rgba(255, 255, 255, 0.12);
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   FOOTER MAIN LAYOUT (保持一致性)
+========================= */
+footer {
+  padding-top: 20px;
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+
+  .footer-social-bar {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 10px;
+  }
+
+  .footer-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+}
