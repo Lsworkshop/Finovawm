@@ -257,6 +257,9 @@
   </span> 
 
   <div class="dropdown-menu">
+
+     <a href="/plans.html" data-en="FinPlanning" data-zh="财务规划"> Events</a>
+
     <a href="/education.html"
        id="navEduCenter"
        data-en="FinCenter"
@@ -278,8 +281,7 @@
       EduForum 
     </a>
 
-    <a href="/plans.html" data-en="FinPlanning" data-zh="财务规划"> Events</a>
-    
+     
   </div>
 
 </div>
@@ -304,16 +306,16 @@
       Volunteer
     </a>
 
-    <a href="/events.html"
-       data-en="Events"
-       data-zh="重要活动">
-      Donation
-    </a>
-
     <a href="/aid.html"
        data-en="Financial Aid"
        data-zh="助学金计算">
       scholarship
+    </a>
+
+    <a href="/events.html"
+       data-en="Events"
+       data-zh="重要活动">
+      Donation
     </a>
 
     <a href="/index.html#resources"
@@ -357,10 +359,11 @@
     <!-- Programs Accordion -->
     <details class="mobile-group">
       <summary data-en="Programs" data-zh="项目">Programs</summary>
+      <a href="/plans.html" data-en="FinPlanning" data-zh="财务规划">Events</a>
       <a href="/education.html" id="mobileEduCenter" data-en="FinCenter" data-zh="财富中心">EduCenter</a>
       <a href="/community.html" id="mobileEduCommunity" data-en="FinCommunity" data-zh="财富社区">EduCommunity</a>
       <a href="/forum.html" id="mobileForum" data-en="FinForum" data-zh="财富论坛">EduForum</a>
-      <a href="/plans.html" data-en="FinPlanning" data-zh="财务规划">Events</a>
+      
     </details>
 
     <!-- Service -->
@@ -373,13 +376,12 @@
     <details class="mobile-group">
       <summary data-en="Get Involved" data-zh="参与方式">Get Involved</summary>
       <a href="/zoom.html" data-en="Zoom&Salon" data-zh="讲座与沙龙">Volunteer</a>
-      <a href="/events.html" data-en="Events" data-zh="重要活动">Donation</a>
       <a href="/aid.html"
        data-en="Financial Aid"
-       data-zh="计算助学金">
-      scholarship
-    </a>
-      <a href="/index.html#resources" data-en="Resources" data-zh="资源">Resources</a>
+       data-zh="计算助学金"></a>
+      <a href="/events.html" data-en="Events" data-zh="重要活动">Donation</a>
+      
+          <a href="/index.html#resources" data-en="Resources" data-zh="资源">Resources</a>
     </details>
 
     <!-- Contact -->
@@ -399,7 +401,6 @@
     </div>
   </div>
 </nav>
-
 
 
 <div class="container">
@@ -451,69 +452,72 @@
 
 const serviceItems = [
   {
-    id: 's1',
-    order: '1',
-    en: '🏠 Education Affordability & Funding Support',
-    zh: '🏠 财富增长规划与资产配置管理',
-    subs_en: [
-      'Financial Aid (FAFSA / CSS)',
-      'Scholarships & Grants',
-      'Education Savings & Funding Strategy'
-    ],
-    subs_zh: [
-      '安全+高流动+永续被动收入',
-      '资产配置家族基金会信托规划',
-      '财富稳健增长特别放大传承'
-    ]
-  },
-  {
-    id: 's2',
-    order: '2',
-    en: '📘 Volunteer & Social Impact Programs & Support',
-    zh: '📘 税务策略与总体优化',
-    subs_en: [
-      'Edunova Volunteer Programs',
-      'Webinar & courses for students',
-      'Community & Social Impact Initiatives'
-    ],
-    subs_zh: [
-      '报税服务税务优化',
-      '税优产品/免税产品',
-      '移民前后税务分析与优化'
-    ]
-  },
-  {
-    id: 's3',
-    order: '3',
-    en: '🎓 Education Affordability & Funding Support',
-    zh: '🎓 教育可负担性与资助支持',
-    subs_en: [
-      'Financial Aid (FAFSA / CSS)',
-      'Scholarships & Grants',
-      'Education Savings & Funding Strategy'
-    ],
-    subs_zh: [
-      '助学金（FAFSA / CSS）',
-      '奖学金与资助项目',
-      '教育储蓄与资金设计'
-    ]
-  },
-  {
-    id: 's4',
-    order: '4',
-    en: '🤝 Academic & College Readiness Support',
-    zh: '🤝 退休规划与富足养老',
-    subs_en: [
-      'U.S. Education System Overview',
-      'College Application Strategy',
-      'Pre-College Profile (AP / Summer)'
-    ],
-    subs_zh: [
-      '符合IRS的退休计划',
-      '六大税优稳健的投资产品',
-      '多阶段制定，赢在人生下半场'
-    ]
-  }
+  id: 's1',
+  order: '1',
+  en: '🏠 Wealth Growth Planning & Asset Allocation',
+  zh: '🏠 财富增长规划与资产配置管理',
+  subs_en: [
+    'High-Liquidity, Tax-Efficient Wealth Strategies',
+    'Estate Planning, Family Foundations & Trust Structures',
+    'Real Estate Investment & Asset Management'
+  ],
+  subs_zh: [
+    '安全+高流动+永续被动收入',
+    '资产放大传承，家族基金会与信托规划',
+    '房地产交易与投资管理'
+  ]
+},
+
+{
+  id: 's2',
+  order: '2',
+  en: '📘 Tax Strategy & Comprehensive Optimization',
+  zh: '📘 税务策略与总体优化',
+  subs_en: [
+    'Tax Filing & Tax Efficiency Planning',
+    'Tax-Advantaged & Tax-Free Investment Strategies',
+    'Pre- & Post-Immigration Tax Optimization'
+  ],
+  subs_zh: [
+    '报税服务与税务优化',
+    '税优产品/免税产品',
+    '移民前后税务分析与优化'
+  ]
+},
+
+{
+  id: 's3',
+  order: '3',
+  en: '🎓 Education Funding & Financial Aid Planning',
+  zh: '🎓 教育可负担性与资助支持',
+  subs_en: [
+    'Financial Aid (FAFSA / CSS Profile)',
+    'Scholarships & Grants Strategy',
+    'Education Savings & Funding Design'
+  ],
+  subs_zh: [
+    '助学金（FAFSA / CSS）',
+    '奖学金与资助项目',
+    '教育储蓄与资金设计'
+  ]
+},
+
+{
+  id: 's4',
+  order: '4',
+  en: '🤝 Retirement Planning & Long-Term Financial Security',
+  zh: '🤝 退休规划与富足养老',
+  subs_en: [
+    'U.S. Retirement Plan Structures (IRS-Compliant)',
+    'Tax-Efficient Retirement Investment Solutions',
+    'Multi-Stage Planning for Long-Term Financial Security'
+  ],
+  subs_zh: [
+    '符合IRS的退休计划',
+    '七大税优稳健的投资产品',
+    '多阶段制定，赢在人生下半场'
+  ]
+}
 ];
 
 /* ===============================
@@ -714,6 +718,47 @@ let lang = localStorage.getItem('superedu-lang') || 'en';
 <script src="/assets/js/auth-nav.js" defer></script>
  <!-- FOOTER -->
 <footer>
+<footer>
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <div class="footer-social-bar">
+
+  <a href="https://www.lsfinova.com/" target="_blank" aria-label="Insights" class="footer-icon">
+    <i class="fa-regular fa-file-lines"></i>
+  </a>
+
+  <a href="https://www.youtube.com/@Finovawm" target="_blank" aria-label="YouTube" class="footer-icon">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+
+  <a href="https://linkedin.com/company/finovawm" target="_blank" aria-label="LinkedIn" class="footer-icon">
+    <i class="fa-brands fa-linkedin-in"></i>
+  </a>
+
+  
+  <a href="https://facebook.com/finovawm" target="_blank" aria-label="Facebook" class="footer-icon">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
+
+  <a href="https://us02web.zoom.us/meeting/register/OTK5r59URLODa2eWFv5b0A" target="_blank" aria-label="Zoom" class="footer-icon">
+    <i class="fa-solid fa-video"></i>
+  </a>
+
+  <a href="https://www.instagram.com/finovawm" target="_blank" aria-label="Instagram" class="footer-icon">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="https://x.com/finovawm" target="_blank" aria-label="X" class="footer-icon">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+
+  <a href="https://www.tiktok.com/@finovawm" target="_blank" aria-label="TikTok" class="footer-icon">
+    <i class="fa-brands fa-tiktok"></i>
+  </a>
+
+</div>
   <div class="footer-inner">
 
     <!-- Column 1 -->
@@ -800,10 +845,9 @@ let lang = localStorage.getItem('superedu-lang') || 'en';
         服务条款
       </a>
 
-      <a 
-         data-en="Only for Education"
-         data-zh="教育目的">
-        服务条款
+      <a href="https://us02web.zoom.us/meeting/register/OTK5r59URLODa2eWFv5b0A" target="_blank"  
+         data-en="Zoom Webinar"
+         data-zh="Zoom讲座">
       </a>
     </div>
 
