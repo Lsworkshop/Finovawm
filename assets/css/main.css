@@ -1865,7 +1865,7 @@ body.register-page .register-card {
 
   flex-wrap: wrap;
 
-  gap: 10px;
+  gap: 8px;
 
   padding: 12px 20px;
 
@@ -1918,7 +1918,7 @@ body.register-page .register-card {
    FOOTER MAIN LAYOUT (保持一致性)
 ========================= */
 footer {
-  padding-top: 8px;
+  padding-top: 6px;
 }
 
 
@@ -1929,7 +1929,7 @@ footer {
 
   .footer-social-bar {
 
-    gap: 6px;
+    gap: 5px;
 
     padding: 10px 10px;
 
