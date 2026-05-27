@@ -1853,9 +1853,6 @@ body.register-page .register-card {
 /* =========================
    FOOTER SOCIAL BAR
 ========================= */
-/* =========================
-   FOOTER SOCIAL BAR
-========================= */
 .footer-social-bar {
 
   width: 100%;
@@ -1868,7 +1865,7 @@ body.register-page .register-card {
 
   flex-wrap: wrap;
 
-  gap: 24px;
+  gap: 10px;
 
   padding: 26px 20px;
 
@@ -1921,12 +1918,10 @@ body.register-page .register-card {
    FOOTER MAIN LAYOUT (保持一致性)
 ========================= */
 footer {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
+
 /* =========================
    MOBILE FOOTER SOCIAL
 ========================= */
