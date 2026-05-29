@@ -61,7 +61,7 @@ async function sendVerificationEmail({
     `${baseUrl}/api/verify-email?token=${token}`;
 
   const body = new URLSearchParams();
-  body.append("from", "Edunova Education <team@finovawm.com>");
+  body.append("from", "Finova Wealth Management <team@finovawm.com>");
   body.append("to", email);
   body.append("subject", "✅Please verify your email | 请验证您的邮箱");
 
